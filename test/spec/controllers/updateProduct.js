@@ -32,14 +32,14 @@ describe('Controller: ListCtrl', function () {
   });
 
   it('should init success', function () {
-    spyOn(categoryManageService,'loadAllCategories').andReturn(categories);
+    spyOn(categoryManageService,'loadAllCategories').and.returnValue(categories);
     createController();
     expect($scope.categories.length).toBe(2);
     expect($scope.categories[0].id).toBe(1);
-    expect($scope.$emit.calls.length).toBe(1);
+    expect($scope.$emit.calls.count()).toBe(1);
   });
   it('should getCategoryName work', function () {
-    spyOn(categoryManageService,'getCategoryById').andReturn({id:1,name:'grocery'});
+    spyOn(categoryManageService,'getCategoryById').and.returnValue({id:1,name:'grocery'});
     createController();
     var result = $scope.getCategoryName('1');
     expect(result).toBe('grocery');
@@ -49,6 +49,6 @@ describe('Controller: ListCtrl', function () {
     spyOn(productManageService,'updateProduct');
     createController();
     $scope.updateProduct(product);
-    expect(productManageService.updateProduct.calls.length).toBe(1);
+    expect(productManageService.updateProduct.calls.count()).toBe(1);
   });
 });
