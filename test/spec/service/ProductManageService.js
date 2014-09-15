@@ -20,30 +20,30 @@ describe('Service: ProductService', function () {
   });
 
   it('should loadAllProducts() work  when get() is OK', function () {
-    spyOn(localStorageService, 'get').andReturn(products);
+    spyOn(localStorageService, 'get').and.returnValue(products);
     var result = productManageService.loadAllProducts();
     expect(result.length).toEqual(2);
     expect(result[1].name).toBe('apple');
   });
   it('should loadAllProducts() work with get() return null', function () {
-    spyOn(localStorageService, 'get').andReturn(null);
+    spyOn(localStorageService, 'get').and.returnValue(null);
     spyOn(localStorageService, 'add');
     var result = productManageService.loadAllProducts();
-    expect(localStorageService.add.calls.length).toBe(1);
+    expect(localStorageService.add.calls.count()).toBe(1);
     expect(result[3].name).toBe('kettle');
   });
   it('should add() work', function () {
     spyOn(localStorageService, 'add');
     productManageService.add(products);
-    expect(localStorageService.add.calls.length).toBe(1);
+    expect(localStorageService.add.calls.count()).toBe(1);
   });
   it('should getProductByName() work', function () {
-    spyOn(localStorageService, 'get').andReturn(products);
+    spyOn(localStorageService, 'get').and.returnValue(products);
     var result = productManageService.getProductByName('apple');
     expect(result.price).toBe(2.5);
   });
   it('should updateProduct() work', function () {
-    spyOn(localStorageService, 'get').andReturn(products);
+    spyOn(localStorageService, 'get').and.returnValue(products);
     var product = {name: 'apple', unit: 'bag', category: '1', price: 3.5};
     var result = productManageService.updateProduct(product);
     expect(result.price).toBe(3.5);
