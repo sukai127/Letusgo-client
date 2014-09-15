@@ -37,13 +37,13 @@ describe('Controller: IndexCtrl', function () {
   }));
 
   it('should init work', function () {
-    spyOn(cartService,'get').andReturn(cart);
+    spyOn(cartService,'get').and.returnValue(cart);
     createController();
     expect($scope.cart.cartItems.length).toBe(3);
   });
 
   it('should on_parent_addCount event trigger', function () {
-    spyOn(cartService,'get').andReturn(cart);
+    spyOn(cartService,'get').and.returnValue(cart);
     spyOn(cartService,'add');
     createController();
     $rootScope.$broadcast('addCount');
@@ -80,10 +80,10 @@ describe('Controller: IndexCtrl', function () {
   });
 
   it('should on_parent_updateCount event trigger', function () {
-    spyOn(cartService,'getTotalCount').andReturn(8);
+    spyOn(cartService,'getTotalCount').and.returnValue(8);
     createController();
     $rootScope.$broadcast('updateCount',cart);
-    expect(cartService.getTotalCount.calls.length).toEqual(1);
+    expect(cartService.getTotalCount.calls.count()).toEqual(1);
     expect($scope.cart.len).toEqual(8);
   });
 
