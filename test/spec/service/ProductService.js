@@ -20,14 +20,14 @@ describe('Service: ProductService', function () {
   });
 
   it('should loadAllProducts() work', function () {
-    spyOn(localStorageService, 'get').andReturn(products);
+    spyOn(localStorageService, 'get').and.returnValue(products);
     var result = productService.loadAllProducts(1);
     expect(result.length).toEqual(2);
     expect(result[1].name).toBe('apple');
   });
 
   it('should getPageTotal() work', function () {
-    spyOn(localStorageService, 'get').andReturn(products);
+    spyOn(localStorageService, 'get').and.returnValue(products);
     var result = productService.getPageTotal();
     expect(result.length).toEqual(1);
     expect(result[0]).toBe(1);
