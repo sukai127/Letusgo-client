@@ -25,14 +25,14 @@ describe('Controller: ListCtrl', function () {
         {name : 'apple', unit : 'kg', category : '1', price : 2.5}
       ];
     spyOn($scope,'$emit');
-    spyOn(productManageService,'loadAllProducts').andReturn(products);
+    spyOn(productManageService,'loadAllProducts').and.returnValue(products);
   });
 
   it('should init success', function () {
     createController();
     expect($scope.products.length).toBe(2);
     expect($scope.products[1].name).toBe('apple');
-    expect($scope.$emit.calls.length).toBe(1);
+    expect($scope.$emit.calls.count()).toBe(1);
   });
 
   it('should remove() work', function () {
@@ -56,7 +56,7 @@ describe('Controller: ListCtrl', function () {
     createController();
     $scope.products = [];
     $scope.$apply();
-    expect(productManageService.add.calls.length).toBe(1);
+    expect(productManageService.add.calls.count()).toBe(1);
   });
 
 });
