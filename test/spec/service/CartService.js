@@ -30,7 +30,7 @@ describe('Service: CartService', function () {
   });
 
   it('should get() work', function () {
-      spyOn(localStorageService,'get').andReturn(cart);
+      spyOn(localStorageService,'get').and.returnValue(cart);
       var result = service.get();
       expect(result.cartItems[0].product.name).toEqual('Instant_noodles');
       expect(result.cartItems.length).toBe(3);
