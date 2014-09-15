@@ -38,7 +38,7 @@ describe('Controller: CartCtrl', function () {
   });
 
   it('should init success', function () {
-    spyOn(cartService,'get').andReturn(cart);
+    spyOn(cartService,'get').and.returnValue(cart);
     createController();
     expect($scope.cart.cartItems.length).toBe(3);
     expect($scope.isCartEmpty).toEqual(false);
@@ -46,7 +46,7 @@ describe('Controller: CartCtrl', function () {
   });
   it('should getSubtotal() work', function () {
       createController();
-      spyOn(cartService,'getSubtotal').andReturn(43.5);
+      spyOn(cartService,'getSubtotal').and.returnValue(43.5);
       var result = $scope.getSubtotal(cart.cartItems[2]);
       expect(result).toBe(43.5);
   });
@@ -61,8 +61,8 @@ describe('Controller: CartCtrl', function () {
       createController();
       $scope.cart = {cartItems: [], len: 0};
       $scope.$apply();
-      expect(cartService.add.calls.length).toBe(1);
-      expect(cartService.getTotalMoney.calls.length).toBe(2);
+      expect(cartService.add.calls.count()).toBe(1);
+      expect(cartService.getTotalMoney.calls.count()).toBe(2);
       expect($scope.$emit).toHaveBeenCalled();
     });
     it('should deleteItem() work', function () {
