@@ -36,12 +36,12 @@ describe('Controller: MainCtrl', function () {
   }));
 
   it('should init work', function () {
-    spyOn(cartService,'get').andReturn(cart);
+    spyOn(cartService,'get').and.returnValue(cart);
     createController();
     expect($scope.cartItems.length).toBe(3);
   });
   it('should getSubtotal work', function () {
-    spyOn(cartService,'getSubtotal').andReturn(4);
+    spyOn(cartService,'getSubtotal').and.returnValue(4);
     createController();
     var result = $scope.getSubtotal(cart.cartItems[0]);
     expect(result).toBe(4);
