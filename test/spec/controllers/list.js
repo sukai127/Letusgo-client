@@ -43,8 +43,8 @@ describe('Controller: ListCtrl', function () {
       ],
       len : 8
     };
-    spyOn(productService,'loadAllProducts').andReturn(products);
-    spyOn(cartService,'get').andReturn(cart);
+    spyOn(productService,'loadAllProducts').and.returnValue(products);
+    spyOn(cartService,'get').and.returnValue(cart);
     spyOn($scope,'$emit');
   });
 
@@ -65,7 +65,7 @@ describe('Controller: ListCtrl', function () {
       expect($scope.cart.cartItems.length).toBe(3);
   });
   it('should getCategoryName work', function () {
-    spyOn(categoryManageService,'getCategoryById').andReturn({id:1,name: 'grocery'});
+    spyOn(categoryManageService,'getCategoryById').and.returnValue({id:1,name: 'grocery'});
     createController();
     var result = $scope.getCategoryName('1');
     expect(result).toBe('grocery');
