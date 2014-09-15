@@ -30,18 +30,18 @@ describe('Controller: ListCtrl', function () {
   });
 
   it('should init success', function () {
-    spyOn(categoryManageService,'loadAllCategories').andReturn(categories);
+    spyOn(categoryManageService,'loadAllCategories').and.returnValue(categories);
     createController();
     expect($scope.categories.length).toBe(2);
     expect($scope.categories[1].id).toBe(2);
-    expect($scope.$emit.calls.length).toBe(1);
+    expect($scope.$emit.calls.count()).toBe(1);
   });
 
   it('should add() work', function () {
     spyOn(categoryManageService,'insert');
     createController();
     $scope.add();
-    expect(categoryManageService.insert.calls.length).toBe(1);
+    expect(categoryManageService.insert.calls.count()).toBe(1);
   });
 
   it('should $watch() work', function () {
@@ -49,7 +49,7 @@ describe('Controller: ListCtrl', function () {
     createController();
     $scope.categories = [];
     $scope.$apply();
-    expect(categoryManageService.add.calls.length).toBe(1);
+    expect(categoryManageService.add.calls.count()).toBe(1);
   });
   it('should remove() work', function () {
     createController();
@@ -57,7 +57,7 @@ describe('Controller: ListCtrl', function () {
     expect($scope.categories.length).toBe(1);
   });
   it('should couldDelete() work', function () {
-    spyOn(categoryManageService,'isIncludeProduct').andReturn(true);
+    spyOn(categoryManageService,'isIncludeProduct').and.returnValue(true);
     createController();
     var result = $scope.couldDelete(1);
     expect(result).toBe(false);
@@ -68,6 +68,6 @@ describe('Controller: ListCtrl', function () {
     spyOn(categoryManageService,'updateCategory');
     createController();
     $scope.updateCategory(category);
-    expect(categoryManageService.updateCategory.calls.length).toBe(1);
+    expect(categoryManageService.updateCategory.calls.count()).toBe(1);
   });
 });
