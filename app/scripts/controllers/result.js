@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angularLetusgoApp')
+angular.module('letusgo')
   .controller('ResultCtrl', function ($scope,CartService) {
     $scope.cartItems = CartService.get().cartItems;
     $scope.getSubtotal = function(cartitem){

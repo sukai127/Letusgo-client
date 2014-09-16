@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angularLetusgoApp')
-  .controller('MainCtrl', function ($scope) {
+angular.module('letusgo')
+  .controller('MainCtrl', function ($scope,MainService) {
     $scope.$emit('highLightActive','index');
   });

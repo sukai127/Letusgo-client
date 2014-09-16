@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angularLetusgoApp')
+angular.module('letusgo')
   .controller('ListCtrl', function ($scope,CartService,ProductService,CategoryManageService,$routeParams) {
     $scope.pageNow = parseInt($routeParams.pageNow);
     $scope.products = ProductService.loadAllProducts($scope.pageNow);

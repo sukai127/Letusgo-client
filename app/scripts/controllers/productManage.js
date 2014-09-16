@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angularLetusgoApp')
+angular.module('letusgo')
   .controller('ProductManageCtrl', function ($scope,ProductManageService,CategoryManageService) {
 
     $scope.products = ProductManageService.loadAllProducts();

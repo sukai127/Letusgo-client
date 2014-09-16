@@ -9,7 +9,7 @@
  * Main module of the application.
  */
 angular
-  .module('angularLetusgoApp', [
+  .module('letusgo', [
     'ngAnimate',
     'ngCookies',
     'ngResource',

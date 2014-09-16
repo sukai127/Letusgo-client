@@ -1,5 +1,5 @@
 'use strict';
-angular.module('angularLetusgoApp')
+angular.module('letusgo')
   .service('ProductManageService', function (localStorageService) {
     this.loadAllProducts = function () {
       var products = [

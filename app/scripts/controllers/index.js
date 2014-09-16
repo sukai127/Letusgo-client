@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-    .module('angularLetusgoApp')
+    .module('letusgo')
     .controller('IndexCtrl',function($scope,CartService){
         $scope.cart = CartService.get();
 
@@ -38,4 +38,4 @@ angular
         $scope.$on('clear',function(){
           $scope.cart = {cartItems: [],len:0};
         });
-    })
+    });

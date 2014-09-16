@@ -2,14 +2,14 @@
 /**
  * Created by sukai on 14-8-14.
  */
-angular.module('angularLetusgoApp')
+angular.module('letusgo')
     .service('CartService',function(localStorageService){
         this.get = function(){
             return localStorageService.get('cart') || {cartItems:[],len:0};
-        }
+        };
         this.add = function(cart){
             localStorageService.set('cart',cart);
-        }
+        };
         this.getTotalMoney = function(cart){
             var sum = 0;
             _.forEach(cart.cartItems,function(cartitem){

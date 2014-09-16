@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angularLetusgoApp')
+angular.module('letusgo')
   .controller('UpdateProductCtrl', function ($scope,CategoryManageService,ProductManageService,$routeParams) {
 
     $scope.product = ProductManageService.getProductByName($routeParams.name);

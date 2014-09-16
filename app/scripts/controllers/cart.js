@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angularLetusgoApp')
+angular.module('letusgo')
     .controller('CartCtrl', function ($scope,CartService) {
         $scope.cart = CartService.get();
         $scope.$emit('highLightActive','cart');

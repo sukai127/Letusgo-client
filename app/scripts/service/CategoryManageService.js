@@ -1,5 +1,5 @@
 'use strict';
-angular.module('angularLetusgoApp')
+angular.module('letusgo')
     .service('CategoryManageService',function(localStorageService){
         this.loadAllCategories = function(){
             var categories = [

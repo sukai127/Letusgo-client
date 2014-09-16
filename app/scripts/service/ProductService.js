@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angularLetusgoApp')
+angular.module('letusgo')
     .service('ProductService',function(CartItemService,localStorageService,CartService){
         this.loadAllProducts = function(pageNow){
             var products = localStorageService.get('products') || [];
@@ -12,14 +12,14 @@ angular.module('angularLetusgoApp')
         };
         this.getPageTotal = function(){
           var totalCount = this.loadAllProducts(null).length;
-          var pageCount = totalCount % 2 == 0 ?  parseInt(totalCount / 2) : parseInt(totalCount / 2) + 1;
+          var pageCount = totalCount % 2 === 0 ?  parseInt(totalCount / 2) : parseInt(totalCount / 2) + 1;
           return _.range(1,pageCount + 1);
         };
         this.add2Cart = function(cart,product){
             var isOk = function (){
                 var flag = true;
                 _.forEach(cart.cartItems,function(item){
-                    if(product.name == item.product.name){
+                    if(product.name === item.product.name){
                         item.count++;
                         flag = false;
                     }

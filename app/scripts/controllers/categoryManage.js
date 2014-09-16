@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angularLetusgoApp')
+angular.module('letusgo')
   .controller('CategoryManageCtrl', function ($scope,CategoryManageService,$routeParams) {
 
       $scope.categories = CategoryManageService.loadAllCategories();
