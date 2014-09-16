@@ -29,7 +29,7 @@ angular.module('letusgo')
         this.getCategoryById = function(id){
             var categories = localStorageService.get('categories');
             return _.find(categories,function(category){
-              return category.id+'' === id;
+              return category.id === id;
             });
         };
         this.updateCategory = function(category){

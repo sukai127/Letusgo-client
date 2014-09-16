@@ -25,13 +25,7 @@ describe('Service: ProductService', function () {
     expect(result.length).toEqual(2);
     expect(result[1].name).toBe('apple');
   });
-  it('should loadAllProducts() work with get() return null', function () {
-    spyOn(localStorageService, 'get').and.returnValue(null);
-    spyOn(localStorageService, 'add');
-    var result = productManageService.loadAllProducts();
-    expect(localStorageService.add.calls.count()).toBe(1);
-    expect(result[3].name).toBe('kettle');
-  });
+
   it('should add() work', function () {
     spyOn(localStorageService, 'add');
     productManageService.add(products);
