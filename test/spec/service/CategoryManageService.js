@@ -25,13 +25,7 @@ describe('Service: ProductService', function () {
         expect(result.length).toEqual(2);
         expect(result[1].name).toBe('device');
     });
-    it('should loadAllCategories() work with get() return null', function () {
-      spyOn(localStorageService,'get').and.returnValue(null);
-      spyOn(localStorageService,'add');
-      var result = categoryManageService.loadAllCategories();
-      expect(localStorageService.add.calls.count()).toBe(1);
-      expect(result[1].name).toBe('device');
-    });
+
     it('should add() work', function () {
       spyOn(localStorageService,'add');
       categoryManageService.add(categories);
