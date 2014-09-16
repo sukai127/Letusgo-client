@@ -1,6 +1,6 @@
 'use strict';
 angular.module('angularLetusgoApp')
-  .service('mainService',function(localStorageService){
+  .service('MainService',function(localStorageService){
     this.initCategories = function(){
       var categories = [
         {id : 1, name: 'grocery'},
@@ -11,7 +11,7 @@ angular.module('angularLetusgoApp')
         localStorageService.add('categories',categories);
       }
     };
-    this.initProuducts = function(){
+    this.initProducts = function(){
       var products = [
         {id:1, name: 'Instant_noodles', unit: 'bag', category: '1', price: 1},
         {id:2, name: 'apple', unit: 'kg', category: '1', price: 2.5},
@@ -25,7 +25,7 @@ angular.module('angularLetusgoApp')
       }
     };
     this.init = function(){
-      this.initProuducts();
+      this.initProducts();
       this.initCategories();
     };
   });
