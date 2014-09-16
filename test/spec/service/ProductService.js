@@ -7,7 +7,7 @@ describe('Service: ProductService', function () {
 
   var localStorageService, productService, cartService, cart, products;
   beforeEach(function () {
-    module('angularLetusgoApp');
+    module('letusgo');
     inject(function ($injector) {
       localStorageService = $injector.get('localStorageService');
       productService = $injector.get('ProductService');

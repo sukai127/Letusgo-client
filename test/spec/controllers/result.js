@@ -2,7 +2,7 @@
 
 describe('Controller: MainCtrl', function () {
 
-  beforeEach(module('angularLetusgoApp'));
+  beforeEach(module('letusgo'));
 
   var createController,$controller,$scope,cartService,cart;
 

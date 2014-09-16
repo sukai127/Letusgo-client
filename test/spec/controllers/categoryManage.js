@@ -5,7 +5,7 @@ describe('Controller: ListCtrl', function () {
   var createController,$controller,$scope,categories,categoryManageService,products;
 
   beforeEach(function(){
-    module('angularLetusgoApp');
+    module('letusgo');
     inject(function ($injector) {
       $scope = $injector.get('$rootScope').$new();
       $controller = $injector.get('$controller');

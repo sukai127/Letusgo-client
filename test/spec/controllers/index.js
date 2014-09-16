@@ -2,7 +2,7 @@
 
 describe('Controller: IndexCtrl', function () {
 
-  beforeEach(module('angularLetusgoApp'));
+  beforeEach(module('letusgo'));
 
   var createController,$controller,$scope,cartService,cart,$rootScope;
 
@@ -16,7 +16,7 @@ describe('Controller: IndexCtrl', function () {
         $scope: $scope,
         CartService: cartService
       });
-    }
+    };
     cart = {
       cartItems: [
         {

@@ -7,7 +7,7 @@ describe('Service: CartItemService', function () {
 
     var cartItemService,cartitem;
     beforeEach(function(){
-        module('angularLetusgoApp');
+        module('letusgo');
         inject(function ($injector) {
             cartItemService = $injector.get('CartItemService');
         });
