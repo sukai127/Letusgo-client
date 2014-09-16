@@ -2,15 +2,7 @@
 angular.module('letusgo')
   .service('ProductManageService', function (localStorageService) {
     this.loadAllProducts = function () {
-      var products = [
-        {id:1, name: 'Instant_noodles', unit: 'bag', category: '1', price: 1},
-        {id:2, name: 'apple', unit: 'kg', category: '1', price: 2.5},
-        {id:3, name: 'coca_cola', unit: 'bottle', category: '1', price: 0.5},
-        {id:4, name: 'kettle', unit: 'piece', category: '2', price: 43.5},
-        {id:5, name: 'fan', unit: 'piece', category: '2', price: 30}
-      ];
-      var temp = localStorageService.get('products');
-      return temp ? temp : (localStorageService.add('products', products), products);
+      return localStorageService.get('products');
     };
     this.add = function (products) {
       localStorageService.add('products', products);
