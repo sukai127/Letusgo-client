@@ -2,7 +2,7 @@
 
 describe('Controller: ListCtrl', function () {
 
-  var createController,$controller,cart,cartService,productService,$scope,products,categoryManageService;
+  var createController,$controller,cart,cartService,productService,$scope,products,categoryManageService,$routeParams;
 
   beforeEach(function(){
     module('letusgo');
@@ -12,6 +12,7 @@ describe('Controller: ListCtrl', function () {
       cartService = $injector.get('CartService');
       categoryManageService = $injector.get('CategoryManageService');
       productService = $injector.get('ProductService');
+      $routeParams = $injector.get('$routeParams');
     });
 
     createController = function(){
@@ -19,7 +20,8 @@ describe('Controller: ListCtrl', function () {
         $scope: $scope,
         CartService: cartService,
         CategoryManageService: categoryManageService,
-        ProductService: productService
+        ProductService: productService,
+        $routeParams : $routeParams
       });
     }
      products = [
@@ -56,6 +58,24 @@ describe('Controller: ListCtrl', function () {
     expect($scope.pageTotal.length).toBe(1);
     expect($scope.products[1].name).toBe('apple');
     expect($scope.$emit).toHaveBeenCalled();
+  });
+
+  it('should page init success', function () {
+    spyOn(productService,'getPageTotal').and.returnValue([1,2,3]);
+    $routeParams.pageNow = 3;
+    createController();
+    expect($scope.pageNow).toBe(3);
+    expect($scope.previous).toBe(2);
+    expect($scope.next).toBe(3);
+  });
+
+  it('should page init success', function () {
+    spyOn(productService,'getPageTotal').and.returnValue([1,2,3]);
+    $routeParams.pageNow = 1;
+    createController();
+    expect($scope.pageNow).toBe(1);
+    expect($scope.previous).toBe(1);
+    expect($scope.next).toBe(2);
   });
 
   it('should add2Cart work', function () {
