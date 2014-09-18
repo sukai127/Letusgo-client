@@ -25,16 +25,23 @@ describe('Service: CartService', function () {
               }
           ],
           len : 8
-      }
+      };
 
   });
 
-  it('should get() work', function () {
+  it('should get() work when localStorage not empty', function () {
       spyOn(localStorageService,'get').and.returnValue(cart);
       var result = service.get();
       expect(result.cartItems[0].product.name).toEqual('Instant_noodles');
       expect(result.cartItems.length).toBe(3);
       expect(result.len).toBe(8);
+  });
+
+  it('should get() work when localStorage not empty', function () {
+    spyOn(localStorageService,'get').and.returnValue(null);
+    var result = service.get();
+    expect(result.cartItems.length).toBe(0);
+    expect(result.len).toBe(0);
   });
 
   it('should set() work',function(){
@@ -54,7 +61,7 @@ describe('Service: CartService', function () {
 
     it('should the subtotal equal 43.50',function(){
         var result = service.getSubtotal(cart.cartItems[2]);
-        expect(result).toBe(43.5.toFixed(2));
+        expect(result).toBe((43.50).toFixed(2));
     });
     it('should remove() work',function(){
         spyOn(localStorageService,'remove');
