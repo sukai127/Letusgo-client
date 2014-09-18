@@ -34,5 +34,19 @@ describe('Service: ProductService', function () {
     expect(localStorageService.add.calls.count()).toEqual(1);
   });
 
+  it('should initCategories() be worked when localStorage not empty', function () {
+    spyOn(localStorageService, 'get').and.returnValue(categories);
+    spyOn(localStorageService,'add');
+    mainService.initCategories();
+    expect(localStorageService.add.calls.count()).toEqual(0);
+  });
+
+  it('should initCategories() be worked when localStorage is empty', function () {
+    spyOn(localStorageService, 'get').and.returnValue(null);
+    spyOn(localStorageService,'add');
+    mainService.initCategories();
+    expect(localStorageService.add.calls.count()).toEqual(1);
+  });
+
 });
 
