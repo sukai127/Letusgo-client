@@ -2,7 +2,7 @@
 
 describe('Controller: ListCtrl', function () {
 
-  var createController,$controller,productManageService,$scope,products,categories,categoryManageService;
+  var createController,$controller,productManageService,$scope,products,categoryManageService;
 
   beforeEach(function(){
     module('letusgo');
@@ -19,7 +19,7 @@ describe('Controller: ListCtrl', function () {
         CategoryManageService: categoryManageService,
         ProductManageService: productManageService
       });
-    }
+    };
      products = [
         {name : 'Instant_noodles', unit : 'bag', category : '1', price : 1},
         {name : 'apple', unit : 'kg', category : '1', price : 2.5}
@@ -46,7 +46,7 @@ describe('Controller: ListCtrl', function () {
     $scope.product = {};
     $scope.add();
     expect($scope.products.length).toBe(2);
-    $scope.product = {name : 'Instant_noodles', unit : 'bag', category : '1', price : 1};
+    $scope.product = {name : 'Instant', unit : 'bag', category : '1', price : 1};
     $scope.add();
     expect($scope.products.length).toBe(3);
   });

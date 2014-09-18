@@ -31,11 +31,39 @@ describe('Service: ProductService', function () {
     productManageService.add(products);
     expect(localStorageService.add.calls.count()).toBe(1);
   });
+
   it('should getProductByName() work', function () {
     spyOn(localStorageService, 'get').and.returnValue(products);
     var result = productManageService.getProductByName('apple');
     expect(result.price).toBe(2.5);
   });
+
+  it('should getProductByName() work when product not exist', function (){
+    spyOn(localStorageService, 'get').and.returnValue(products);
+    var result = productManageService.getProductByName('fruit');
+    expect(result.length).toBe(undefined);
+  });
+
+  it('should insert() work when product is null', function () {
+    spyOn(localStorageService, 'get').and.returnValue(products);
+    var result = productManageService.insert({});
+    expect(result.length).toBe(2);
+  });
+
+  it('should insert() work when product not null', function () {
+    spyOn(localStorageService, 'get').and.returnValue(products);
+    var product = {name: 'banana', unit: 'kg', category: '1', price: 3.5};
+    var result = productManageService.insert(product);
+    expect(result.length).toBe(3);
+  });
+
+  it('should insert() work when product is exist', function () {
+    spyOn(localStorageService, 'get').and.returnValue(products);
+    var product = {name: 'apple', unit: 'kg', category: '1', price: 3.5};
+    var result = productManageService.insert(product);
+    expect(result.length).toBe(2);
+  });
+
   it('should updateProduct() work', function () {
     spyOn(localStorageService, 'get').and.returnValue(products);
     var product = {name: 'apple', unit: 'bag', category: '1', price: 3.5};
