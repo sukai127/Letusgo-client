@@ -48,5 +48,12 @@ describe('Service: ProductService', function () {
     expect(localStorageService.add.calls.count()).toEqual(1);
   });
 
+  it('should init() be worked',function(){
+    spyOn(mainService, 'initCategories');
+    spyOn(mainService,'initProducts');
+    mainService.init();
+    expect(mainService.initProducts).toHaveBeenCalled();
+    expect(mainService.initCategories).toHaveBeenCalled();
+  });
 });
 
