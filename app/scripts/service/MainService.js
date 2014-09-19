@@ -1,28 +1,17 @@
 'use strict';
 angular.module('letusgo')
-  .service('MainService',function(localStorageService){
+  .service('MainService',function(localStorageService,$http){
     this.initCategories = function(){
-      var categories = [
-        {id : 1, name: 'grocery'},
-        {id : 2, name: 'device'}
-      ];
-      var temp = localStorageService.get('categories');
-      if(!temp){
-        localStorageService.add('categories',categories);
-      }
+      $http({
+        url: '/api/categories',
+        method: 'POST'
+      });
     };
     this.initProducts = function(){
-      var products = [
-        {id:1, name: 'Instant_noodles', unit: 'bag', category: '1', price: 1},
-        {id:2, name: 'apple', unit: 'kg', category: '1', price: 2.5},
-        {id:3, name: 'coca_cola', unit: 'bottle', category: '1', price: 0.5},
-        {id:4, name: 'kettle', unit: 'piece', category: '2', price: 43.5},
-        {id:5, name: 'fan', unit: 'piece', category: '2', price: 30}
-      ];
-      var temp = localStorageService.get('products');
-      if(!temp){
-        localStorageService.add('products', products);
-      }
+      $http({
+        url: '/api/items',
+        method: 'POST'
+      });
     };
     this.init = function(){
       this.initProducts();
