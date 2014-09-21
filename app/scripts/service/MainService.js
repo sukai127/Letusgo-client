@@ -8,9 +8,10 @@ angular.module('letusgo')
       });
     };
     this.initProducts = function(){
-      $http({
-        url: '/api/items',
-        method: 'POST'
+      $http.get('/api/items').success(function(data){
+        if(!data){
+          $http.post('/api/items',{});
+        }
       });
     };
     this.init = function(){
