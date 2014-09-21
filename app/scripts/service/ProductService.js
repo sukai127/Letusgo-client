@@ -1,14 +1,15 @@
 'use strict';
 
 angular.module('letusgo')
-    .service('ProductService',function(CartItemService,localStorageService,CartService){
-        this.loadAllProducts = function(pageNow){
-            var products = localStorageService.get('products') || [];
-            if(pageNow){
-              return products.slice((pageNow-1)*2,pageNow*2);
-            }else{
-              return products;
-            }
+    .service('ProductService',function(CartItemService,localStorageService,CartService,$http){
+        this.loadAllProducts = function(pageNow,callback){
+            $http.get('/api/items').success(function(products){
+              if(pageNow){
+                callback(products.slice((pageNow-1)*2,pageNow*2));
+              }else{
+                callback(products);
+              }
+            });
         };
         this.getPageTotal = function(){
           var totalCount = this.loadAllProducts(null).length;
