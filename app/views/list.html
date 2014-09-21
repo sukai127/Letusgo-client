@@ -13,7 +13,7 @@
       </div>
       <div ng-repeat="item in products">
         <div class='row text-center form-group'>
-          <div class='col-xs-3 h4'>{{getCategoryName(item.category)}}</div>
+          <div class='col-xs-3 h4'>{{item.category.name}}</div>
           <div class='col-xs-3 h4'>{{item.name}}</div>
           <div class='col-xs-3 h4'>${{item.price}}/{{item.unit}}</div>
           <div class='col-xs-3'>

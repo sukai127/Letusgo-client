@@ -6,7 +6,7 @@ angular.module('letusgo')
     ProductService.loadAllProducts($scope.pageNow,function(data){
       $scope.products = data;
       _.forEach($scope.products,function(product){
-        CategoryManageService.getCategoryById(product.category,function(data){
+        CategoryManageService.getCategoryById(product.categoryId,function(data){
           product.category = data;
         });
       });
