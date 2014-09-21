@@ -3,10 +3,14 @@
 angular
     .module('letusgo')
     .controller('IndexCtrl',function($scope,CartService){
-        $scope.cart = CartService.get();
+        CartService.get(function(data){
+          $scope.cart = data;
+        });
 
         $scope.$on('addCount',function(){
-          $scope.cart = CartService.get();
+          CartService.get(function(data){
+            $scope.cart = data;
+          });
           $scope.cart.len++;
           CartService.add($scope.cart);
         });
@@ -25,7 +29,7 @@ angular
                    eval('$scope.' + item + " = false");
                }
             });
-        }
+        };
 
         $scope.$on('highLightActive',function(event,active){
           $scope.highLight(active + 'Active');
