@@ -11,7 +11,7 @@ angular.module('letusgo')
             });
         };
         this.add = function(cart){
-            localStorageService.set('cart',cart);
+            $http.post('/api/cart',{cart:cart});
         };
         this.getTotalMoney = function(cart){
             var sum = 0;
@@ -32,7 +32,7 @@ angular.module('letusgo')
             return (cartitem.product.price * cartitem.count).toFixed(2);
         };
         this.remove = function(){
-            localStorageService.remove('cart');
+            $http.delete('/api/cart');
         };
     });
 
