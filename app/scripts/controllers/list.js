@@ -3,20 +3,24 @@
 angular.module('letusgo')
   .controller('ListCtrl', function ($scope,CartService,ProductService,CategoryManageService,$routeParams) {
     $scope.pageNow = parseInt($routeParams.pageNow);
-    $scope.products = ProductService.loadAllProducts($scope.pageNow);
+    ProductService.loadAllProducts($scope.pageNow,function(data){
+      $scope.products = data;
+      _.forEach($scope.products,function(product){
+        CategoryManageService.getCategoryById(product.category,function(data){
+          product.category = data;
+        });
+      });
+    });
     $scope.cart = CartService.get();
     $scope.$emit('highLightActive','list');
-    $scope.add2Cart = function(product){
+    $scope.addToCart = function(product){
         $scope.$emit('addCount');
-        ProductService.add2Cart($scope.cart,product);
-    };
-    $scope.getCategoryName = function(id){
-      return CategoryManageService.getCategoryById(id).name;
+        ProductService.addToCart($scope.cart,product);
     };
 
-    $scope.pageTotal = ProductService.getPageTotal();
-
-    $scope.previous = $scope.pageNow - 1 < 1 ? 1 : $scope.pageNow - 1;
-    $scope.next = $scope.pageNow + 1 > _.max($scope.pageTotal) ? _.max($scope.pageTotal) : $scope.pageNow + 1;
-
+    ProductService.getPageTotal(function(data){
+      $scope.pageTotal = data;
+      $scope.previous = $scope.pageNow - 1 < 1 ? 1 : $scope.pageNow - 1;
+      $scope.next = $scope.pageNow + 1 > _.max($scope.pageTotal) ? _.max($scope.pageTotal) : $scope.pageNow + 1;
+    });
   });
