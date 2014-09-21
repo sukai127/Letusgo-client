@@ -11,10 +11,12 @@ angular.module('letusgo')
               }
             });
         };
-        this.getPageTotal = function(){
-          var totalCount = this.loadAllProducts(null).length;
-          var pageCount = totalCount % 2 === 0 ?  parseInt(totalCount / 2) : parseInt(totalCount / 2) + 1;
-          return _.range(1,pageCount + 1);
+        this.getPageTotal = function(callback){
+          this.loadAllProducts(null,function(data){
+            var totalCount =data.length;
+            var pageCount = totalCount % 2 === 0 ?  parseInt(totalCount / 2) : parseInt(totalCount / 2) + 1;
+            callback(_.range(1,pageCount + 1));
+          });
         };
         this.add2Cart = function(cart,product){
             var isOk = function (){
