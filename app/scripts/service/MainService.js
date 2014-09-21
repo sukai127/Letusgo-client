@@ -2,9 +2,10 @@
 angular.module('letusgo')
   .service('MainService',function(localStorageService,$http){
     this.initCategories = function(){
-      $http({
-        url: '/api/categories',
-        method: 'POST'
+      $http.get('/api/categories').success(function(data){
+        if(!data){
+          $http.post('/api/categories',{});
+        }
       });
     };
     this.initProducts = function(){
