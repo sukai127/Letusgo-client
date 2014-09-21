@@ -3,10 +3,23 @@
 angular.module('letusgo')
   .controller('CategoryManageCtrl', function ($scope,CategoryManageService,$routeParams) {
 
-      $scope.categories = CategoryManageService.loadAllCategories();
-      $scope.category = CategoryManageService.getCategoryById($routeParams.id);
+      CategoryManageService.loadAllCategories(function(categories){
+        $scope.categories = categories;
+        _.forEach($scope.categories,function(category){
+          CategoryManageService.isIncludeProduct(category.id,function(data){
+            category.couldDelete = data ? false: true;
+          });
+        });
+        $scope.category = _.find($scope.categories,function(category){
+          var id = $routeParams.id || 0;
+          return category.id.toString() === id.toString();
+        });
+      });
+
       $scope.add = function(){
-        $scope.categories = CategoryManageService.insert($scope.name);
+        CategoryManageService.insert($scope.name,function(data){
+          $scope.categories = data;
+        });
       };
 
       $scope.$emit('highLightActive','category');
@@ -14,11 +27,6 @@ angular.module('letusgo')
       $scope.remove = function(index){
         $scope.categories.splice(index,1);
       };
-
-      $scope.couldDelete = function(id){
-        return !CategoryManageService.isIncludeProduct(id);
-      };
-
       $scope.$watch('categories',function(){
         CategoryManageService.add($scope.categories);
       },true);
