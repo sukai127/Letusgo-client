@@ -15,7 +15,7 @@ angular.module('letusgo')
             var isExist = _.some(categories,{name : name});
             if(name && !isExist){
               var id = parseInt(categories[categories.length-1].id) + 1;
-              var category = {id: id,name : name};
+              var category = {id: id,name : name,couldDelete:true};
               categories.push(category);
               callback(categories);
             }
