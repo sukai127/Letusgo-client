@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Controller: ListCtrl', function () {
+xdescribe('Controller: ListCtrl', function () {
 
   var createController,$controller,cart,cartService,productService,$scope,products,categoryManageService,$routeParams;
 

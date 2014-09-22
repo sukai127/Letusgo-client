@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Controller: MainCtrl', function () {
+xdescribe('Controller: MainCtrl', function () {
 
   beforeEach(module('letusgo'));
 
