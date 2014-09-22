@@ -2,12 +2,14 @@
 
 angular.module('letusgo')
   .controller('ResultCtrl', function ($scope,CartService) {
-    $scope.cartItems = CartService.get().cartItems;
+    CartService.get(function(data){
+      $scope.cartItems = data.cartItems;
+    });
     $scope.getSubtotal = function(cartitem){
         return CartService.getSubtotal(cartitem);
     };
     $scope.clearData = function() {
         CartService.remove();
         $scope.$emit('clear');
-    }
+    };
   });
