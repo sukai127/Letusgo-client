@@ -20,6 +20,8 @@ angular.module('letusgo')
 
     $scope.$emit('highLightActive','product');
     $scope.add = function(){
-      $scope.products = ProductManageService.insert($scope.product);
+      ProductManageService.insert($scope.product,function(data){
+        $scope.products = data;
+      });
     };
   });
