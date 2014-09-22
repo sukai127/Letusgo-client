@@ -25,17 +25,21 @@ angular.module('letusgo')
     };
 
     this.updateProduct = function (product) {
-      var products = localStorageService.get('products');
-      _.forEach(products,function(item,index){
-        if(item.id === product.id){
-          products[index] = product;
-        }
+      $http.get('/api/items').success(function(data){
+        var products = data;
+        _.forEach(products,function(item,index){
+          if(item.id === product.id){
+            products[index] = product;
+          }
+        });
+        $http.post('/api/items',{products:products});
       });
-      this.add(products);
       return product;
     };
-    this.getProductByName = function(name){
-      var products = localStorageService.get('products');
-      return _.find(products,{name: name}) || {};
+    this.getProductByName = function(name,callback){
+      $http.get('/api/items').success(function(products){
+        var result = _.find(products,{name: name}) || {};
+        callback(result);
+      });
     };
   });
