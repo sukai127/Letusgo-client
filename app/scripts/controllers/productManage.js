@@ -5,14 +5,15 @@ angular.module('letusgo')
 
     ProductManageService.loadAllProducts(function(data){
       $scope.products = data;
+      $scope.product = _.find($scope.products,function(product){
+        var name = $routeParams.name || 0;
+        return product.name.toString() === name.toString();
+      });
     });
     CategoryManageService.loadAllCategories(function(data){
       $scope.categories = data;
     });
 
-    ProductManageService.getProductByName($routeParams.name,function(data){
-      $scope.product = data;
-    });
     $scope.$watch('products',function(){
       ProductManageService.add($scope.products);
     },true);
