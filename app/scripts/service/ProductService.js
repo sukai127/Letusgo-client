@@ -18,21 +18,26 @@ angular.module('letusgo')
             callback(_.range(1,pageCount + 1));
           });
         };
-        this.addToCart = function(cart,product){
+        this.addToCart = function(cart,product,callback){
+
             var isExist = function (){
-                var flag = true;
+                var flag = false;
                 _.forEach(cart.cartItems,function(item){
                     if(product.name === item.product.name){
                         item.count++;
-                        flag = false;
+                        flag = true;
                     }
                 });
                 return flag;
             };
-            if(isExist()){
+
+            if(!isExist()){
                 cart.cartItems.push(CartItemService.create(product,1));
             }
+
             cart.len = CartService.getTotalCount(cart);
-            $http.post('/api/cart',{cart:cart});
+            $http.post('/api/cart',{'cart':cart}).success(function(){
+              callback(cart);
+            });
         };
     });

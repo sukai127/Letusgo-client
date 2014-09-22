@@ -7,12 +7,9 @@ angular
           $scope.cart = data;
         });
 
-        $scope.$on('addCount',function(){
-          CartService.get(function(data){
-            $scope.cart = data;
-            $scope.cart.len++;
+        $scope.$on('addCount',function(event,cart){
+            $scope.cart = cart;
             CartService.add($scope.cart);
-          });
         });
         $scope.indexActive = true;
         $scope.listActive = false;
