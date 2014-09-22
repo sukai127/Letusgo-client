@@ -4,7 +4,9 @@ angular.module('letusgo')
   .controller('UpdateProductCtrl', function ($scope,CategoryManageService,ProductManageService,$routeParams) {
 
     $scope.product = ProductManageService.getProductByName($routeParams.name);
-    $scope.categories = CategoryManageService.loadAllCategories();
+    CategoryManageService.loadAllCategories(function(data){
+      $scope.categories = data;
+    });
 
     $scope.getCategoryName = function(id){
       return CategoryManageService.getCategoryById(id).name;
