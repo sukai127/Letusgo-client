@@ -1,13 +1,5 @@
 'use strict';
 
-/**
- * @ngdoc overview
- * @name angularLetusgoApp
- * @description
- * # angularLetusgoApp
- *
- * Main module of the application.
- */
 angular
   .module('letusgo', [
     'ngAnimate',
@@ -46,7 +38,7 @@ angular
       })
       .when('/updateProduct/:name', {
         templateUrl: 'views/updateProduct.html',
-        controller: 'UpdateProductCtrl'
+        controller: 'ProductManageCtrl'
       })
       .when('/result', {
         templateUrl: 'views/result.html',
