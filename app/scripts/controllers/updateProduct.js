@@ -8,9 +8,6 @@ angular.module('letusgo')
       $scope.categories = data;
     });
 
-    $scope.getCategoryName = function(id){
-      return CategoryManageService.getCategoryById(id).name;
-    };
     $scope.updateProduct = function(){
       ProductManageService.updateProduct($scope.product);
     };
