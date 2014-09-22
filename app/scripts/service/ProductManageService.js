@@ -1,8 +1,15 @@
 'use strict';
 angular.module('letusgo')
-  .service('ProductManageService', function (localStorageService,$http) {
+  .service('ProductManageService', function (localStorageService,$http,CategoryManageService) {
     this.loadAllProducts = function (callback) {
       $http.get('/api/items').success(function(data){
+        _.forEach(data,function(item){
+          if(item.category){
+            CategoryManageService.getCategoryById(item.id,function(category){
+              item.category = category;
+            });
+          }
+        });
         callback(data);
       });
     };
