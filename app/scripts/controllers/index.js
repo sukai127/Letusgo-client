@@ -32,9 +32,8 @@ angular
           $scope.highLight(active + 'Active');
         });
         $scope.$on('updateCount',function(event,cart){
-          cart.len = CartService.getTotalCount(CartService.get());
-          $scope.cart.len = cart.len;
-          CartService.add(cart);
+            cart.len = CartService.getTotalCount(cart);
+            $scope.cart.len = cart.len;
         });
         $scope.$on('clear',function(){
           $scope.cart = {cartItems: [],len:0};
