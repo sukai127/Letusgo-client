@@ -3,7 +3,7 @@
  */
 'use strict';
 
-describe('Service: CartItemService', function () {
+xdescribe('Service: CartItemService', function () {
 
     var cartItemService,cartitem;
     beforeEach(function(){
