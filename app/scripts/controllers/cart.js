@@ -2,10 +2,13 @@
 
 angular.module('letusgo')
     .controller('CartCtrl', function ($scope,CartService) {
-        $scope.cart = CartService.get();
+        CartService.get(function(data){
+          $scope.cart = data;
+          $scope.isCartEmpty = $scope.cart.cartItems.length === 0;
+          $scope.totalMoney = CartService.getTotalMoney($scope.cart);
+        });
         $scope.$emit('highLightActive','cart');
-        $scope.isCartEmpty = $scope.cart.cartItems.length == 0;
-        $scope.totalMoney = CartService.getTotalMoney($scope.cart);
+
         $scope.getSubtotal = function(cartitem){
             return CartService.getSubtotal(cartitem);
         };
