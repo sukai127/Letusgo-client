@@ -3,8 +3,12 @@
 angular.module('letusgo')
   .controller('ProductManageCtrl', function ($scope,ProductManageService,CategoryManageService) {
 
-    $scope.products = ProductManageService.loadAllProducts();
-    $scope.categories = CategoryManageService.loadAllCategories();
+    ProductManageService.loadAllProducts(function(data){
+      $scope.products = data;
+    });
+    CategoryManageService.loadAllCategories(function(data){
+      $scope.categories = data;
+    });
     $scope.$watch('products',function(){
       ProductManageService.add($scope.products);
     },true);
