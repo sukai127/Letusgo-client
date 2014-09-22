@@ -4,9 +4,11 @@ angular.module('letusgo')
     this.loadAllProducts = function (callback) {
       $http.get('/api/items').success(function(data){
         _.forEach(data,function(item){
-          CategoryManageService.getCategoryById(item.categoryId,function(category){
-            item.category = category;
-          });
+          if(item.category){
+            CategoryManageService.getCategoryById(item.categoryId,function(category){
+              item.category = category;
+            });
+          }
         });
         callback(data);
       });
@@ -16,16 +18,18 @@ angular.module('letusgo')
     };
 
     this.insert = function(product,callback){
-      $http.get('/api/items').success(function(data){
-        var products = data;
+      $http.get('/api/items').success(function(products){
         var isExist = _.some(products,{name : product.name});
-        var isAllFullIn = product && product.name && product.price && product.unit  && !isExist;
+        var isAllFullIn = product && product.name && product.price && product.unit && product.categorId  && !isExist;
         if(isAllFullIn){
           var id = parseInt(products[products.length-1].id) + 1;
           product.id = id;
-          products.push(product);
+          CategoryManageService.getCategoryById(product.categorId,function(data){
+            product.category = data;
+            products.push(product);
+            callback(products);
+          });
         }
-        callback(products);
       });
     };
 
