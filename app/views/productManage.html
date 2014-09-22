@@ -25,7 +25,7 @@
       <div ng-repeat="product in products | filter:query">
         <div class='row text-center form-inline'>
           <div class='col-xs-2'>
-            {{getCategoryName(product.category)}}
+            {{product.category}}
           </div>
           <div class='col-xs-3'>
             {{product.name}}
