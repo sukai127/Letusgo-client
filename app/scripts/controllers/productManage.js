@@ -24,6 +24,7 @@ angular.module('letusgo')
     };
 
     $scope.updateProduct = function(){
+      $scope.product.category = null;
       ProductManageService.updateProduct($scope.product);
     };
 
