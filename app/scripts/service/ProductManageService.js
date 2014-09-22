@@ -7,19 +7,21 @@ angular.module('letusgo')
       });
     };
     this.add = function (products) {
-      localStorageService.add('products', products);
+      $http.post('/api/items',{products:products});
     };
 
-    this.insert = function(product){
-      var products = this.loadAllProducts();
-      var isExist = _.some(products,{name : product.name});
-      var isAllFullIn = product && product.name && product.price && product.unit  && !isExist;
-      if(isAllFullIn){
-        var id = parseInt(products[products.length-1].id) + 1;
-        product.id = id;
-        products.push(product);
-      }
-      return products;
+    this.insert = function(product,callback){
+      $http.get('/api/items').success(function(data){
+        var products = data;
+        var isExist = _.some(products,{name : product.name});
+        var isAllFullIn = product && product.name && product.price && product.unit  && !isExist;
+        if(isAllFullIn){
+          var id = parseInt(products[products.length-1].id) + 1;
+          product.id = id;
+          products.push(product);
+        }
+        callback(products);
+      });
     };
 
     this.updateProduct = function (product) {
