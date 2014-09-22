@@ -17,9 +17,7 @@ angular.module('letusgo')
       $scope.products.splice(index,1);
       return false;
     };
-    $scope.getCategoryName = function(id){
-      return CategoryManageService.getCategoryById(id).name;
-    };
+
     $scope.$emit('highLightActive','product');
     $scope.add = function(){
       $scope.products = ProductManageService.insert($scope.product);
