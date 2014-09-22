@@ -10,9 +10,9 @@ angular
         $scope.$on('addCount',function(){
           CartService.get(function(data){
             $scope.cart = data;
+            $scope.cart.len++;
+            CartService.add($scope.cart);
           });
-          $scope.cart.len++;
-          CartService.add($scope.cart);
         });
         $scope.indexActive = true;
         $scope.listActive = false;
