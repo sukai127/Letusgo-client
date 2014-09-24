@@ -1,14 +1,18 @@
 'use strict';
 
 angular.module('letusgo')
-    .service('ProductService',function(CartItemService,localStorageService,CartService,$http){
+    .service('ProductService',function(CartItemService,CategoryManageService,localStorageService,CartService,$http){
         this.loadAllProducts = function(pageNow,callback){
             $http.get('/api/items').success(function(products){
               if(pageNow){
-                callback(products.slice((pageNow-1)*2,pageNow*2));
-              }else{
-                callback(products);
+                products  = products.slice((pageNow-1)*2,pageNow*2);
               }
+              _.forEach(products,function(product){
+                CategoryManageService.getCategoryById(product.categoryId,function(data){
+                  product.category = data;
+                });
+              });
+              callback(products);
             });
         };
         this.getPageTotal = function(callback){

@@ -5,11 +5,6 @@ angular.module('letusgo')
     $scope.pageNow = parseInt($routeParams.pageNow);
     ProductService.loadAllProducts($scope.pageNow,function(data){
       $scope.products = data;
-      _.forEach($scope.products,function(product){
-        CategoryManageService.getCategoryById(product.categoryId,function(data){
-          product.category = data;
-        });
-      });
     });
     CartService.get(function(data){
        $scope.cart = data;
