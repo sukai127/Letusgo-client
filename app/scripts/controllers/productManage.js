@@ -15,12 +15,12 @@ angular.module('letusgo')
     });
 
     $scope.$watch('products',function(){
-      ProductManageService.add($scope.products);
+      //ProductManageService.add($scope.products);
     },true);
 
     $scope.remove = function(index){
+      ProductManageService.delete($scope.products[index].id);
       $scope.products.splice(index,1);
-      return false;
     };
 
     $scope.updateProduct = function(){
