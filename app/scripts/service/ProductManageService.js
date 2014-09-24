@@ -34,15 +34,7 @@ angular.module('letusgo')
     };
 
     this.updateProduct = function (product) {
-      $http.get('/api/items').success(function(data){
-        var products = data;
-        _.forEach(products,function(item,index){
-          if(item.id === product.id){
-            products[index] = product;
-          }
-        });
-        $http.post('/api/items',{products:products});
-      });
+      $http.put('/api/items/'+product.id,{product:product});
       return product;
     };
     this.getProductByName = function(name,callback){
