@@ -14,10 +14,6 @@ angular.module('letusgo')
       $scope.categories = data;
     });
 
-    $scope.$watch('products',function(){
-      //ProductManageService.add($scope.products);
-    },true);
-
     $scope.remove = function(index){
       ProductManageService.delete($scope.products[index].id);
       $scope.products.splice(index,1);
