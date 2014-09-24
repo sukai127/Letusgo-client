@@ -29,6 +29,7 @@ angular.module('letusgo')
       $http.delete('/api/items/'+id);
     }
     this.updateProduct = function (product) {
+      delete product.category;
       $http.put('/api/items/'+product.id,{product:product});
     };
     this.getProductByName = function(name,callback){

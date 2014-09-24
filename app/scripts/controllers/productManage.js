@@ -24,7 +24,11 @@ angular.module('letusgo')
     };
 
     $scope.updateProduct = function(){
-      $scope.product.category = null;
+      _.forEach($scope.products,function(product,index){
+         if(product.id.toString() === $scope.product.id.toString()){
+           $scope.products[index] = $scope.product;
+         }
+      });
       ProductManageService.updateProduct($scope.product);
     };
 
