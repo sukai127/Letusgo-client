@@ -31,11 +31,8 @@ angular.module('letusgo')
           });
         };
         this.getCategoryById = function(id,callback){
-          this.loadAllCategories(function(categories){
-            var result = _.find(categories,function(category){
-              return category.id+'' === ''+id;
-            });
-            callback(result);
+          $http.get('/api/categories/'+id).success(function(data){
+            callback(data);
           });
         };
         this.updateCategory = function(category){
