@@ -17,25 +17,17 @@ angular.module('letusgo')
       $http.post('/api/items',{products:products});
     };
 
-    this.insert = function(product,callback){
-      $http.get('/api/items').success(function(products){
-        var isExist = _.some(products,{name : product.name});
-        var isAllFullIn = product && product.name && product.price && product.unit && product.categoryId  && !isExist;
-        if(isAllFullIn){
-          var id = parseInt(products[products.length-1].id) + 1;
-          product.id = id;
-          CategoryManageService.getCategoryById(product.categoryId,function(data){
-            product.category = data;
-            products.push(product);
-            callback(products);
-          });
-        }
-      });
+    this.insert = function(product){
+
+      var isAllFullIn = product && product.name && product.price && product.unit && product.categoryId;
+      console.log(product);
+      if(isAllFullIn){
+          $http.post('/api/items',{product:product});
+      }
     };
 
     this.updateProduct = function (product) {
       $http.put('/api/items/'+product.id,{product:product});
-      return product;
     };
     this.getProductByName = function(name,callback){
       $http.get('/api/items').success(function(products){
