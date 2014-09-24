@@ -20,12 +20,14 @@ angular.module('letusgo')
     this.insert = function(product){
 
       var isAllFullIn = product && product.name && product.price && product.unit && product.categoryId;
-      console.log(product);
       if(isAllFullIn){
           $http.post('/api/items',{product:product});
       }
     };
 
+    this.delete = function(id){
+      $http.delete('/api/items/'+id);
+    }
     this.updateProduct = function (product) {
       $http.put('/api/items/'+product.id,{product:product});
     };
