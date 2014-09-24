@@ -17,17 +17,21 @@ angular.module('letusgo')
       $http.post('/api/items',{products:products});
     };
 
-    this.insert = function(product){
+    this.insert = function(product,callback){
 
       var isAllFullIn = product && product.name && product.price && product.unit && product.categoryId;
       if(isAllFullIn){
           $http.post('/api/items',{product:product});
       }
+      CategoryManageService.getCategoryById(product.id,function(category){
+        product.category = category;
+        callback(product);
+      });
     };
 
     this.delete = function(id){
       $http.delete('/api/items/'+id);
-    }
+    };
     this.updateProduct = function (product) {
       delete product.category;
       $http.put('/api/items/'+product.id,{product:product});
