@@ -21,12 +21,13 @@ angular.module('letusgo')
 
       var isAllFullIn = product && product.name && product.price && product.unit && product.categoryId;
       if(isAllFullIn){
-          $http.post('/api/items',{product:product});
+          $http.post('/api/items',{product:product}).success(function(){
+            CategoryManageService.getCategoryById(product.categoryId,function(category){
+              product.category = category;
+              callback(product);
+            });
+          });
       }
-      CategoryManageService.getCategoryById(product.id,function(category){
-        product.category = category;
-        callback(product);
-      });
     };
 
     this.delete = function(id){
