@@ -13,9 +13,6 @@ angular.module('letusgo')
         callback(data);
       });
     };
-    this.add = function (products) {
-      $http.post('/api/items',{products:products});
-    };
 
     this.insert = function(product,callback){
 
