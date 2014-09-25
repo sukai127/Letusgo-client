@@ -28,6 +28,10 @@ angular.module('letusgo')
           });
         };
 
+        this.delete = function(id){
+          $http.delete('/api/categories/'+id);
+        };
+
         this.isIncludeProduct = function(id,callback){
           $http.get('/api/items').success(function(products){
             var result = _.find(products,function(product){
