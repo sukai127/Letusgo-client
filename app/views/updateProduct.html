@@ -13,11 +13,9 @@
       <div class='row text-center form-group'>
         <div class='col-xs-3 col-xs-offset-2 h5'>product_Category</div>
         <div class='col-xs-3'>
-          <select class="form-control" ng-model='product.categoryId'>
-            <option value={{category.id}} ng-selected={{product.categoryId===category.id}}
-                    ng-repeat="category in categories">
-              {{category.name}}
-            </option>
+          <select class="form-control" ng-model='product.categoryId'
+                  ng-options="item.id as item.name for item in categories">
+            <option value="">{{product.category.name}}</option>
           </select>
         </div>
       </div>

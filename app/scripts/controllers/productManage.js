@@ -9,7 +9,13 @@ angular.module('letusgo')
         var name = $routeParams.name || 0;
         return product.name.toString() === name.toString();
       });
+      if($scope.product){
+        CategoryManageService.getCategoryById($scope.product.categoryId,function(data){
+          $scope.product.category = data;
+        });
+      }
     });
+
     CategoryManageService.loadAllCategories(function(data){
       $scope.categories = data;
     });
