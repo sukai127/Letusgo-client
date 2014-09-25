@@ -1,6 +1,6 @@
 'use strict';
 angular.module('letusgo')
-  .service('MainService',function(localStorageService,$http){
+  .service('MainService',function($http){
     this.initCategories = function(){
       $http.get('/api/categories').success(function(data){
         if(!data){

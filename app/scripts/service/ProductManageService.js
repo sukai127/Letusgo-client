@@ -1,6 +1,6 @@
 'use strict';
 angular.module('letusgo')
-  .service('ProductManageService', function (localStorageService,$http,CategoryManageService) {
+  .service('ProductManageService', function ($http,CategoryManageService) {
     this.loadAllProducts = function (callback) {
       $http.get('/api/items').success(function(data){
         _.forEach(data,function(item){

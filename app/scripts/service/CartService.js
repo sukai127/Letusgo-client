@@ -3,7 +3,7 @@
  * Created by sukai on 14-8-14.
  */
 angular.module('letusgo')
-    .service('CartService',function(localStorageService,$http){
+    .service('CartService',function($http){
         this.get = function(callback){
             $http.get('/api/cart').success(function(data){
               var cart = data || {cartItems:[],len:0};
