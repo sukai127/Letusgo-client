@@ -13,7 +13,7 @@ angular.module('letusgo')
 
       $scope.add = function(){
         CategoryManageService.insert($scope.name,function(data){
-          $scope.categories = data;
+          $scope.categories.push(data);
         });
       };
 

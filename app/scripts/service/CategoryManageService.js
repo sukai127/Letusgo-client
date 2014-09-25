@@ -17,15 +17,13 @@ angular.module('letusgo')
           return categories;
         };
         this.insert = function(name,callback){
-          this.loadAllCategories(function(categories){
-            var isExist = _.some(categories,{name : name});
-            if(name && !isExist){
-              var id = parseInt(categories[categories.length-1].id) + 1;
-              var category = {id: id,name : name,couldDelete:true};
-              categories.push(category);
-              callback(categories);
-            }
-          });
+          if(name){
+            var category = {name:name};
+            $http.post('/api/categories',{category:category}).success(function(){
+              category.couldDelete = true;
+              callback(category);
+            });
+          }
         };
 
         this.delete = function(id){
