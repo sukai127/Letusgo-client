@@ -2,8 +2,14 @@
 angular.module('letusgo')
     .service('CategoryManageService',function(localStorageService,$http){
         this.loadAllCategories = function(callback){
-            $http.get('/api/categories').success(function(data){
-              callback(data);
+            var service = this;
+            $http.get('/api/categories').success(function(categories){
+              _.forEach(categories,function(category){
+                service.isIncludeProduct(category.id,function(data){
+                  category.couldDelete = data ? false: true;
+                });
+                callback(categories);
+              });
             });
         };
         this.add = function(categories){

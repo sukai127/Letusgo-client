@@ -5,11 +5,6 @@ angular.module('letusgo')
 
       CategoryManageService.loadAllCategories(function(categories){
         $scope.categories = categories;
-        _.forEach($scope.categories,function(category){
-          CategoryManageService.isIncludeProduct(category.id,function(data){
-            category.couldDelete = data ? false: true;
-          });
-        });
         $scope.category = _.find($scope.categories,function(category){
           var id = $routeParams.id || 0;
           return category.id.toString() === id.toString();
