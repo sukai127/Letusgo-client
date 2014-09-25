@@ -20,6 +20,7 @@ angular.module('letusgo')
       $scope.$emit('highLightActive','category');
 
       $scope.remove = function(index){
+        CategoryManageService.delete($scope.categories[index].id);
         $scope.categories.splice(index,1);
       };
 
