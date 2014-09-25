@@ -16,15 +16,13 @@
         </div>
       </div>
       <div class='row text-center form-group'>
-        <div class='col-xs-4 h2'>id</div>
-        <div class='col-xs-4 h2'>name</div>
-        <div class='col-xs-4 h2'>operate</div>
+        <div class='col-xs-6 h2'>name</div>
+        <div class='col-xs-6 h2'>operate</div>
       </div>
       <div ng-repeat="category in categories | filter:query">
         <div class='row text-center'>
-          <div class='col-xs-4 h4'>{{category.id}}</div>
-          <div class='col-xs-4'>{{category.name}}</div>
-          <div class='col-xs-4 h5'>
+          <div class='col-xs-6'>{{category.name}}</div>
+          <div class='col-xs-6 h5'>
             <a href="#/updateCategory/{{category.id}}">
               <span class='glyphicon glyphicon-pencil text-justify'></span>
             </a>
