@@ -22,9 +22,6 @@ angular.module('letusgo')
       $scope.remove = function(index){
         $scope.categories.splice(index,1);
       };
-      $scope.$watch('categories',function(){
-        CategoryManageService.add($scope.categories);
-      },true);
 
       $scope.updateCategory = function(){
         CategoryManageService.updateCategory($scope.category);
