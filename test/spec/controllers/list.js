@@ -81,10 +81,4 @@ describe('Controller: ListCtrl', function () {
       expect($scope.$emit).toHaveBeenCalled();
       expect($scope.cart.cartItems.length).toBe(3);
   });
-  xit('should getCategoryName work', function () {
-    spyOn(categoryManageService,'getCategoryById').and.returnValue({id:1,name: 'grocery'});
-    createController();
-    var result = $scope.getCategoryName('1');
-    expect(result).toBe('grocery');
-  });
 });
