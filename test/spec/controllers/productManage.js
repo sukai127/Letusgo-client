@@ -40,10 +40,12 @@ describe('Controller: ListCtrl', function () {
     });
   });
 
-  xit('should remove() work', function () {
+  it('should remove() work', function () {
+    spyOn(productManageService,'delete');
     createController();
     $scope.remove(1);
     expect($scope.products.length).toBe(1);
+    expect(productManageService.delete.calls.count()).toBe(1);
   });
 
   xit('should add() work when product equal {}', function () {
