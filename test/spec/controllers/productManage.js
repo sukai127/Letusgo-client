@@ -32,9 +32,12 @@ describe('Controller: ListCtrl', function () {
 
   it('should init success', function () {
     createController();
-    expect($scope.products.length).toBe(2);
-    expect($scope.products[1].name).toBe('apple');
-    expect($scope.$emit.calls.count()).toBe(1);
+    productManageService.loadAllProducts(function(data){
+      $scope.products = data;
+      expect($scope.products.length).toBe(2);
+      expect($scope.products[1].name).toBe('apple');
+      expect($scope.$emit.calls.count()).toBe(1);
+    });
   });
 
   xit('should remove() work', function () {
