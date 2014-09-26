@@ -31,8 +31,12 @@ angular.module('letusgo')
         this.getSubtotal = function(cartitem){
             return (cartitem.product.price * cartitem.count).toFixed(2);
         };
-        this.remove = function(){
-            $http.delete('/api/cart');
+        this.remove = function(callback){
+            $http.delete('/api/cart').success(function(data,status){
+              if(status === 200){
+                callback();
+              }
+            });
         };
     });
 
