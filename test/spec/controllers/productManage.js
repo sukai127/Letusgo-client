@@ -71,12 +71,4 @@ describe('Controller: ListCtrl', function () {
     expect($scope.products.length).toBe(3);
   });
 
-  xit('should $watch() work', function () {
-    spyOn(productManageService,'add');
-    createController();
-    $scope.products = [];
-    $scope.$apply();
-    expect(productManageService.add.calls.count()).toBe(1);
-  });
-
 });
