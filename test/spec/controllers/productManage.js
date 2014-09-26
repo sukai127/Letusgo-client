@@ -60,12 +60,13 @@ describe('Controller: ListCtrl', function () {
     expect(productManageService.delete.calls.count()).toBe(1);
   });
 
-  xit('should add() work when product equal {}', function () {
+  it('should add() work when product equal {}', function () {
+    var product = {name : 'Instant', unit : 'bag', category : '1', price : 1};
+    spyOn(productManageService,'insert').and.callFake(function(item,callback){
+      callback(product);
+    });
     createController();
-    $scope.product = {};
-    $scope.add();
-    expect($scope.products.length).toBe(2);
-    $scope.product = {name : 'Instant', unit : 'bag', category : '1', price : 1};
+    $scope.product = product;
     $scope.add();
     expect($scope.products.length).toBe(3);
   });
