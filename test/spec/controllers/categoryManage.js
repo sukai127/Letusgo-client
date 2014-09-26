@@ -27,12 +27,12 @@ describe('Controller: ListCtrl', function () {
       {name: 'apple', unit: 'kg', categoryId: '1', price: 2.5}
     ];
     spyOn($scope,'$emit');
-  });
-
-  it('should init success', function () {
     spyOn(categoryManageService,'loadAllCategories').and.callFake(function(callback){
       callback(categories);
     });
+  });
+
+  it('should init success', function () {
     createController();
     categoryManageService.loadAllCategories(function(data){
       $scope.categories = data;
@@ -49,9 +49,11 @@ describe('Controller: ListCtrl', function () {
     expect(categoryManageService.insert.calls.count()).toBe(1);
   });
 
-  xit('should remove() work', function () {
+  it('should remove() work', function () {
+    spyOn(categoryManageService,'delete');
     createController();
     $scope.remove(1);
+    expect(categoryManageService.delete.calls.count()).toBe(1);
     expect($scope.categories.length).toBe(1);
   });
   xit('should couldDelete() work', function () {
