@@ -2,7 +2,7 @@
 
 describe('Controller: ListCtrl', function () {
 
-  var createController,$controller,$scope,categories,categoryManageService,products;
+  var createController,$controller,$scope,categories,categoryManageService,products,$routeParams;
 
   beforeEach(function(){
     module('letusgo');
@@ -10,12 +10,14 @@ describe('Controller: ListCtrl', function () {
       $scope = $injector.get('$rootScope').$new();
       $controller = $injector.get('$controller');
       categoryManageService = $injector.get('CategoryManageService');
+      $routeParams = $injector.get('$routeParams');
     });
 
     createController = function(){
       return $controller('CategoryManageCtrl', {
         $scope: $scope,
-        CategoryManageService: categoryManageService
+        CategoryManageService: categoryManageService,
+        $routeParams: $routeParams
       });
     };
     categories = [
@@ -33,10 +35,12 @@ describe('Controller: ListCtrl', function () {
   });
 
   it('should init success', function () {
+    $routeParams.id = 1;
     createController();
     categoryManageService.loadAllCategories(function(data){
       $scope.categories = data;
       expect($scope.categories.length).toBe(2);
+      expect($scope.category.name).toBe('grocery');
       expect($scope.categories[1].id).toBe(2);
       expect($scope.$emit.calls.count()).toBe(1);
     });
