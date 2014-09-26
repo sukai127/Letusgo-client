@@ -65,7 +65,7 @@ describe('Controller: IndexCtrl', function () {
     expect($scope.cartActive).toEqual(true);
   });
 
-  xit('should on_parent_highLight_active_* event trigger', function () {
+  it('should highLightActive_* event trigger', function () {
     createController();
     $rootScope.$broadcast('highLightActive','list');
     expect($scope.listActive).toEqual(true);
