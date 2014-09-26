@@ -57,7 +57,7 @@ describe('Controller: ListCtrl', function () {
     expect($scope.categories.length).toBe(1);
   });
 
-  xit('should updateCategory() work', function () {
+  it('should updateCategory() work', function () {
     var category = {id : 2, name: 'device'};
     spyOn(categoryManageService,'updateCategory');
     createController();
