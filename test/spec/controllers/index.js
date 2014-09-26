@@ -55,7 +55,8 @@ describe('Controller: IndexCtrl', function () {
     expect($scope.listActive).toEqual(false);
     expect(cartService.add).toHaveBeenCalled();
   });
-  xit('should highLight trigger', function () {
+
+  it('should highLight trigger', function () {
     createController();
     $scope.highLight('listActive');
     expect($scope.indexActive).toEqual(false);
