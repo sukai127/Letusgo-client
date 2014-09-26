@@ -47,7 +47,9 @@ describe('Controller: ListCtrl', function () {
   });
 
   it('should add() work', function () {
-    spyOn(categoryManageService,'insert');
+    spyOn(categoryManageService,'insert').and.callFake(function(name,callback){
+      callback({id:1,name:name});
+    });
     createController();
     $scope.add();
     expect(categoryManageService.insert.calls.count()).toBe(1);
