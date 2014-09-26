@@ -1,6 +1,6 @@
 'use strict';
 
-xdescribe('Controller: ListCtrl', function () {
+describe('Controller: ListCtrl', function () {
 
   var createController,$controller,productManageService,$scope,products,categoryManageService;
 
@@ -25,7 +25,9 @@ xdescribe('Controller: ListCtrl', function () {
         {name : 'apple', unit : 'kg', category : '1', price : 2.5}
       ];
     spyOn($scope,'$emit');
-    spyOn(productManageService,'loadAllProducts').and.returnValue(products);
+    spyOn(productManageService,'loadAllProducts').and.callFake(function(callback){
+      callback(products);
+    });
   });
 
   it('should init success', function () {
@@ -35,13 +37,13 @@ xdescribe('Controller: ListCtrl', function () {
     expect($scope.$emit.calls.count()).toBe(1);
   });
 
-  it('should remove() work', function () {
+  xit('should remove() work', function () {
     createController();
     $scope.remove(1);
     expect($scope.products.length).toBe(1);
   });
 
-  it('should add() work when product equal {}', function () {
+  xit('should add() work when product equal {}', function () {
     createController();
     $scope.product = {};
     $scope.add();
@@ -51,7 +53,7 @@ xdescribe('Controller: ListCtrl', function () {
     expect($scope.products.length).toBe(3);
   });
 
-  it('should $watch() work', function () {
+  xit('should $watch() work', function () {
     spyOn(productManageService,'add');
     createController();
     $scope.products = [];
