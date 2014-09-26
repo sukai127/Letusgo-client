@@ -49,13 +49,6 @@ describe('Controller: ListCtrl', function () {
     expect(categoryManageService.insert.calls.count()).toBe(1);
   });
 
-  xit('should $watch() work', function () {
-    spyOn(categoryManageService,'add');
-    createController();
-    $scope.categories = [];
-    $scope.$apply();
-    expect(categoryManageService.add.calls.count()).toBe(1);
-  });
   xit('should remove() work', function () {
     createController();
     $scope.remove(1);
