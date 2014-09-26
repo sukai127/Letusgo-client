@@ -76,7 +76,7 @@ describe('Controller: IndexCtrl', function () {
     expect($scope.indexActive).toEqual(true);
   });
 
-  xit('should on_parent_clear event trigger', function () {
+  it('should clear event trigger', function () {
     createController();
     $rootScope.$broadcast('clear');
     expect($scope.cart.len).toEqual(0);
