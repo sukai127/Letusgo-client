@@ -56,12 +56,6 @@ describe('Controller: ListCtrl', function () {
     expect(categoryManageService.delete.calls.count()).toBe(1);
     expect($scope.categories.length).toBe(1);
   });
-  xit('should couldDelete() work', function () {
-    spyOn(categoryManageService,'isIncludeProduct').and.returnValue(true);
-    createController();
-    var result = $scope.couldDelete(1);
-    expect(result).toBe(false);
-  });
 
   xit('should updateCategory() work', function () {
     var category = {id : 2, name: 'device'};
