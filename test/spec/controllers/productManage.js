@@ -2,7 +2,7 @@
 
 describe('Controller: ListCtrl', function () {
 
-  var createController,$controller,productManageService,$scope,products,categoryManageService;
+  var createController,$controller,productManageService,$scope,products,categoryManageService,categories;
 
   beforeEach(function(){
     module('letusgo');
@@ -28,6 +28,14 @@ describe('Controller: ListCtrl', function () {
     spyOn(productManageService,'loadAllProducts').and.callFake(function(callback){
       callback(products);
     });
+
+    categories = [
+      {id : 1, name: 'grocery'},
+      {id : 2, name: 'device'}
+    ];
+    spyOn(categoryManageService,'loadAllCategories').and.callFake(function(callback){
+      callback(categories);
+    });
   });
 
   it('should init success', function () {
@@ -37,6 +45,10 @@ describe('Controller: ListCtrl', function () {
       expect($scope.products.length).toBe(2);
       expect($scope.products[1].name).toBe('apple');
       expect($scope.$emit.calls.count()).toBe(1);
+    });
+    categoryManageService.loadAllCategories(function(data){
+      $scope.categories = data;
+      expect($scope.categories.length).toBe(2);
     });
   });
 
