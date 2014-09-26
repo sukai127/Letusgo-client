@@ -21,8 +21,8 @@ describe('Controller: ListCtrl', function () {
       });
     };
      products = [
-        {name : 'Instant_noodles', unit : 'bag', category : '1', price : 1},
-        {name : 'apple', unit : 'kg', category : '1', price : 2.5}
+        {id:1, name : 'Instant_noodles', unit : 'bag', category : '1', price : 1},
+        {id:2, name : 'apple', unit : 'kg', category : '1', price : 2.5}
       ];
     spyOn($scope,'$emit');
     spyOn(productManageService,'loadAllProducts').and.callFake(function(callback){
@@ -69,6 +69,16 @@ describe('Controller: ListCtrl', function () {
     $scope.product = product;
     $scope.add();
     expect($scope.products.length).toBe(3);
+  });
+
+  it('should updateProduct() work', function () {
+    var product = {id:1,name : 'Instant', unit : 'bag', category : '1', price : 1};
+    spyOn(productManageService,'updateProduct');
+    createController();
+    $scope.product = product;
+    $scope.updateProduct();
+    expect($scope.products[0].name).toBe('Instant');
+    expect(productManageService.updateProduct.calls.count()).toBe(1);
   });
 
 });
