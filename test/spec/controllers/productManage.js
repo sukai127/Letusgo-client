@@ -52,6 +52,21 @@ describe('Controller: ListCtrl', function () {
     });
   });
 
+  it('should init success when product is not empty', function () {
+    spyOn(categoryManageService,'getCategoryById').and.callFake(function(id,callback){
+      callback({id:2,name:'grocery'});
+    });
+    $routeParams.name = 'apple';
+    createController();
+    productManageService.loadAllProducts(function(data){
+      $scope.products = data;
+      expect($scope.products.length).toBe(2);
+      expect($scope.products[1].name).toBe('apple');
+      expect($scope.$emit.calls.count()).toBe(1);
+      expect(categoryManageService.getCategoryById).toHaveBeenCalled();
+    });
+  });
+
   it('should initCategories success', function () {
     createController();
     categoryManageService.loadAllCategories(function(data){
