@@ -52,8 +52,10 @@ describe('Controller: MainCtrl', function () {
     expect(result).toBe(4);
   });
 
-  xit('should clearData work', function () {
-    spyOn(cartService,'remove');
+  it('should clearData work', function () {
+    spyOn(cartService,'remove').and.callFake(function(callback){
+      callback();
+    });
     spyOn($scope,'$emit');
     createController();
     $scope.clearData();
