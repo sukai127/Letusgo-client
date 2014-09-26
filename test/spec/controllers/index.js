@@ -1,6 +1,6 @@
 'use strict';
 
-xdescribe('Controller: IndexCtrl', function () {
+describe('Controller: IndexCtrl', function () {
 
   beforeEach(module('letusgo'));
 
@@ -34,15 +34,20 @@ xdescribe('Controller: IndexCtrl', function () {
       ],
       len : 8
     };
+    spyOn(cartService,'get').and.callFake(function(callback){
+      callback(cart);
+    });
   }));
 
   it('should init work', function () {
-    spyOn(cartService,'get').and.returnValue(cart);
     createController();
+    cartService.get(function(data){
+      $scope.cart = data;
+    });
     expect($scope.cart.cartItems.length).toBe(3);
   });
 
-  it('should on_parent_addCount event trigger', function () {
+  xit('should on_parent_addCount event trigger', function () {
     spyOn(cartService,'get').and.returnValue(cart);
     spyOn(cartService,'add');
     createController();
@@ -52,7 +57,7 @@ xdescribe('Controller: IndexCtrl', function () {
     expect($scope.listActive).toEqual(false);
     expect(cartService.add).toHaveBeenCalled();
   });
-  it('should highLight trigger', function () {
+  xit('should highLight trigger', function () {
     createController();
     $scope.highLight('listActive');
     expect($scope.indexActive).toEqual(false);
@@ -61,7 +66,7 @@ xdescribe('Controller: IndexCtrl', function () {
     expect($scope.cartActive).toEqual(true);
   });
 
-  it('should on_parent_highLight_active_* event trigger', function () {
+  xit('should on_parent_highLight_active_* event trigger', function () {
     createController();
     $rootScope.$broadcast('highLightActive','list');
     expect($scope.listActive).toEqual(true);
@@ -72,14 +77,14 @@ xdescribe('Controller: IndexCtrl', function () {
     expect($scope.indexActive).toEqual(true);
   });
 
-  it('should on_parent_clear event trigger', function () {
+  xit('should on_parent_clear event trigger', function () {
     createController();
     $rootScope.$broadcast('clear');
     expect($scope.cart.len).toEqual(0);
     expect($scope.cart.cartItems.length).toEqual(0);
   });
 
-  it('should on_parent_updateCount event trigger', function () {
+  xit('should on_parent_updateCount event trigger', function () {
     spyOn(cartService,'getTotalCount').and.returnValue(8);
     createController();
     $rootScope.$broadcast('updateCount',cart);
