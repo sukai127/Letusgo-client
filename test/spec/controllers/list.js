@@ -45,9 +45,6 @@ describe('Controller: ListCtrl', function () {
       ],
       len : 8
     };
-    spyOn(productService,'loadAllProducts').and.callFake(function(callback){
-      callback(products);
-    });
     spyOn(cartService,'get').and.callFake(function(callback){
       callback(cart);
     });
@@ -56,20 +53,26 @@ describe('Controller: ListCtrl', function () {
 
   it('should init success', function () {
     createController();
-    expect($scope.cart.cartItems.length).toBe(3);
-    expect($scope.products.length).toBe(2);
-    expect($scope.pageTotal.length).toBe(1);
-    expect($scope.products[1].name).toBe('apple');
+    cartService.get(function(data){
+      $scope.cart = data;
+      expect($scope.cart.cartItems.length).toBe(3);
+    });
     expect($scope.$emit).toHaveBeenCalled();
   });
 
-  xit('should page init success', function () {
-    spyOn(productService,'getPageTotal').and.returnValue([1,2,3]);
+  it('should page init success', function () {
+    spyOn(productService,'getPageTotal').and.callFake(function(callback){
+      callback([1,2,3]);
+    });
     $routeParams.pageNow = 3;
     createController();
-    expect($scope.pageNow).toBe(3);
-    expect($scope.previous).toBe(2);
-    expect($scope.next).toBe(3);
+    productService.getPageTotal(function(data){
+      $scope.pageTotal = data;
+      expect($scope.pageTotal.length).toBe(3);
+      expect($scope.previous).toBe(2);
+      expect($scope.next).toBe(3);
+    });
+
   });
 
   xit('should page init success', function () {
