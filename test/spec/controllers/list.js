@@ -75,18 +75,9 @@ describe('Controller: ListCtrl', function () {
 
   });
 
-  xit('should page init success', function () {
-    spyOn(productService,'getPageTotal').and.returnValue([1,2,3]);
-    $routeParams.pageNow = 1;
-    createController();
-    expect($scope.pageNow).toBe(1);
-    expect($scope.previous).toBe(1);
-    expect($scope.next).toBe(2);
-  });
-
-  xit('should add2Cart work', function () {
+  it('should addToCart work', function () {
       createController();
-      $scope.add2Cart(products[0]);
+      $scope.addToCart(products[0]);
       expect($scope.$emit).toHaveBeenCalled();
       expect($scope.cart.cartItems.length).toBe(3);
   });
