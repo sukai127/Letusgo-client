@@ -82,6 +82,21 @@ describe('Controller: ListCtrl', function () {
 
   });
 
+  it('should page init success', function () {
+    spyOn(productService,'getPageTotal').and.callFake(function(callback){
+      callback([1,2,3]);
+    });
+    $routeParams.pageNow = 1;
+    createController();
+    productService.getPageTotal(function(data){
+      $scope.pageTotal = data;
+      expect($scope.pageTotal.length).toBe(3);
+      expect($scope.previous).toBe(1);
+      expect($scope.next).toBe(2);
+    });
+
+  });
+
   it('should addToCart work', function () {
       createController();
       $scope.addToCart(products[0]);
