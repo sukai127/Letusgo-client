@@ -2,13 +2,14 @@
 
 describe('Controller: ListCtrl', function () {
 
-  var createController,$controller,productManageService,$scope,products,categoryManageService,categories;
+  var createController,$controller,productManageService,$scope,products,categoryManageService,categories,$routeParams;
 
   beforeEach(function(){
     module('letusgo');
     inject(function ($injector) {
       $scope = $injector.get('$rootScope').$new();
       $controller = $injector.get('$controller');
+      $routeParams = $injector.get('$routeParams');
       categoryManageService = $injector.get('CategoryManageService');
       productManageService = $injector.get('ProductManageService');
     });
@@ -17,7 +18,8 @@ describe('Controller: ListCtrl', function () {
       return $controller('ProductManageCtrl', {
         $scope: $scope,
         CategoryManageService: categoryManageService,
-        ProductManageService: productManageService
+        ProductManageService: productManageService,
+        $routeParams: $routeParams
       });
     };
      products = [
@@ -39,16 +41,14 @@ describe('Controller: ListCtrl', function () {
   });
 
   it('should init success', function () {
+    $routeParams.name = 'apple';
     createController();
     productManageService.loadAllProducts(function(data){
       $scope.products = data;
       expect($scope.products.length).toBe(2);
+      expect($scope.product.unit).toBe('kg');
       expect($scope.products[1].name).toBe('apple');
       expect($scope.$emit.calls.count()).toBe(1);
-    });
-    categoryManageService.loadAllCategories(function(data){
-      $scope.categories = data;
-      expect($scope.categories.length).toBe(2);
     });
   });
 
