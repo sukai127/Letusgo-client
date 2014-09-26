@@ -45,6 +45,9 @@ describe('Controller: ListCtrl', function () {
       ],
       len : 8
     };
+    spyOn(productService,'loadAllProducts').and.callFake(function(items,callback){
+      callback(products);
+    });
     spyOn(cartService,'get').and.callFake(function(callback){
       callback(cart);
     });
@@ -53,6 +56,10 @@ describe('Controller: ListCtrl', function () {
 
   it('should init success', function () {
     createController();
+    productService.loadAllProducts(1,function(data){
+      $scope.products = data;
+      expect($scope.products.length).toBe(2);
+    });
     cartService.get(function(data){
       $scope.cart = data;
       expect($scope.cart.cartItems.length).toBe(3);
