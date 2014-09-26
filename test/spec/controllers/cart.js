@@ -66,10 +66,19 @@ describe('Controller: CartCtrl', function () {
     });
     it('should #watch() work', function () {
       createController();
-      $scope.cart = {cartItems: [], len: 0};
+      $scope.cart = {cartItems: [
+        {
+        product: {name : 'Instant_noodles', unit : 'bag', category : 'grocery', price : 1},
+        count : -1
+        },
+        {
+          product: {name : 'coca_cola', unit : 'bottle', category : 'grocery', price : 0.5},
+          count : 3
+        }
+      ], len: 3};
       $scope.$apply();
-      expect(cartService.add.calls.count()).toBe(1);
-      expect(cartService.getTotalMoney.calls.count()).toBe(2);
+      expect(cartService.add.calls.count()).toBe(2);
+      expect(cartService.getTotalMoney.calls.count()).toBe(3);
       expect($scope.$emit).toHaveBeenCalled();
     });
     it('should deleteItem() work', function () {
