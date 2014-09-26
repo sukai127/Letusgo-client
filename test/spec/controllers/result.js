@@ -1,6 +1,6 @@
 'use strict';
 
-xdescribe('Controller: MainCtrl', function () {
+describe('Controller: MainCtrl', function () {
 
   beforeEach(module('letusgo'));
 
@@ -15,7 +15,7 @@ xdescribe('Controller: MainCtrl', function () {
         $scope: $scope,
         CartService: cartService
       });
-    }
+    };
     cart = {
       cartItems: [
         {
@@ -33,6 +33,9 @@ xdescribe('Controller: MainCtrl', function () {
       ],
       len : 8
     };
+    spyOn(cartService,'get').and.callFake(function(callback){
+      callback(cart);
+    });
   }));
 
   it('should init work', function () {
@@ -40,14 +43,14 @@ xdescribe('Controller: MainCtrl', function () {
     createController();
     expect($scope.cartItems.length).toBe(3);
   });
-  it('should getSubtotal work', function () {
+  xit('should getSubtotal work', function () {
     spyOn(cartService,'getSubtotal').and.returnValue(4);
     createController();
     var result = $scope.getSubtotal(cart.cartItems[0]);
     expect(result).toBe(4);
   });
 
-  it('should clearData work', function () {
+  xit('should clearData work', function () {
     spyOn(cartService,'remove');
     spyOn($scope,'$emit');
     createController();
