@@ -9,7 +9,8 @@ angular.module('letusgo')
         return CartService.getSubtotal(cartitem);
     };
     $scope.clearData = function() {
-        CartService.remove();
-        $scope.$emit('clear');
+        CartService.remove(function(){
+          $scope.$emit('clear');
+        });
     };
   });
