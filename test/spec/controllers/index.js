@@ -47,12 +47,10 @@ describe('Controller: IndexCtrl', function () {
     expect($scope.cart.cartItems.length).toBe(3);
   });
 
-  xit('should on_parent_addCount event trigger', function () {
-    spyOn(cartService,'get').and.returnValue(cart);
+  it('should on_parent_addCount event trigger', function () {
     spyOn(cartService,'add');
     createController();
     $rootScope.$broadcast('addCount');
-    expect($scope.cart.len).toBe(9);
     expect($scope.indexActive).toEqual(true);
     expect($scope.listActive).toEqual(false);
     expect(cartService.add).toHaveBeenCalled();
