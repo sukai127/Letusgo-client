@@ -18,9 +18,11 @@ describe('Controller: MainCtrl', function () {
     };
   }));
 
-  it('should active_index equal true', function () {
+  it('should init success', function () {
     spyOn($scope,'$emit');
+    spyOn(mainService,'init');
     createController();
     expect($scope.$emit).toHaveBeenCalled();
+    expect(mainService.init.calls.count()).toBe(1);
   });
 });
