@@ -52,6 +52,15 @@ describe('Controller: ListCtrl', function () {
     });
   });
 
+  it('should initCategories success', function () {
+    createController();
+    categoryManageService.loadAllCategories(function(data){
+      $scope.categories = data;
+      expect($scope.categories.length).toBe(2);
+    });
+  });
+
+
   it('should remove() work', function () {
     spyOn(productManageService,'delete');
     createController();
