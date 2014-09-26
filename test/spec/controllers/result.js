@@ -45,7 +45,7 @@ describe('Controller: MainCtrl', function () {
       expect($scope.cartItems.length).toBe(3);
     });
   });
-  xit('should getSubtotal work', function () {
+  it('should getSubtotal work', function () {
     spyOn(cartService,'getSubtotal').and.returnValue(4);
     createController();
     var result = $scope.getSubtotal(cart.cartItems[0]);
