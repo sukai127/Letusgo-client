@@ -83,7 +83,7 @@ describe('Controller: IndexCtrl', function () {
     expect($scope.cart.cartItems.length).toEqual(0);
   });
 
-  xit('should on_parent_updateCount event trigger', function () {
+  it('should updateCount event trigger', function () {
     spyOn(cartService,'getTotalCount').and.returnValue(8);
     createController();
     $rootScope.$broadcast('updateCount',cart);
