@@ -1,6 +1,6 @@
 'use strict';
 
-xdescribe('Controller: ListCtrl', function () {
+describe('Controller: ListCtrl', function () {
 
   var createController,$controller,cart,cartService,productService,$scope,products,categoryManageService,$routeParams;
 
@@ -23,7 +23,7 @@ xdescribe('Controller: ListCtrl', function () {
         ProductService: productService,
         $routeParams : $routeParams
       });
-    }
+    };
      products = [
       {name : 'Instant_noodles', unit : 'bag', category : '1', price : 1},
       {name : 'apple', unit : 'kg', category : '1', price : 2.5}
@@ -45,13 +45,16 @@ xdescribe('Controller: ListCtrl', function () {
       ],
       len : 8
     };
-    spyOn(productService,'loadAllProducts').and.returnValue(products);
-    spyOn(cartService,'get').and.returnValue(cart);
+    spyOn(productService,'loadAllProducts').and.callFake(function(callback){
+      callback(products);
+    });
+    spyOn(cartService,'get').and.callFake(function(callback){
+      callback(cart);
+    });
     spyOn($scope,'$emit');
   });
 
   it('should init success', function () {
-
     createController();
     expect($scope.cart.cartItems.length).toBe(3);
     expect($scope.products.length).toBe(2);
@@ -60,7 +63,7 @@ xdescribe('Controller: ListCtrl', function () {
     expect($scope.$emit).toHaveBeenCalled();
   });
 
-  it('should page init success', function () {
+  xit('should page init success', function () {
     spyOn(productService,'getPageTotal').and.returnValue([1,2,3]);
     $routeParams.pageNow = 3;
     createController();
@@ -69,7 +72,7 @@ xdescribe('Controller: ListCtrl', function () {
     expect($scope.next).toBe(3);
   });
 
-  it('should page init success', function () {
+  xit('should page init success', function () {
     spyOn(productService,'getPageTotal').and.returnValue([1,2,3]);
     $routeParams.pageNow = 1;
     createController();
@@ -78,13 +81,13 @@ xdescribe('Controller: ListCtrl', function () {
     expect($scope.next).toBe(2);
   });
 
-  it('should add2Cart work', function () {
+  xit('should add2Cart work', function () {
       createController();
       $scope.add2Cart(products[0]);
       expect($scope.$emit).toHaveBeenCalled();
       expect($scope.cart.cartItems.length).toBe(3);
   });
-  it('should getCategoryName work', function () {
+  xit('should getCategoryName work', function () {
     spyOn(categoryManageService,'getCategoryById').and.returnValue({id:1,name: 'grocery'});
     createController();
     var result = $scope.getCategoryName('1');
