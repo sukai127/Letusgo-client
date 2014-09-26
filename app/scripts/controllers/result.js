@@ -12,5 +12,6 @@ angular.module('letusgo')
         CartService.remove(function(){
           $scope.$emit('clear');
         });
+      $scope.$emit('clear');
     };
   });
