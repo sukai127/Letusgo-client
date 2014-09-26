@@ -1,6 +1,6 @@
 'use strict';
 
-xdescribe('Controller: CartCtrl', function () {
+describe('Controller: CartCtrl', function () {
 
   var createController,$controller,cart,cartService,$scope;
 
@@ -17,7 +17,7 @@ xdescribe('Controller: CartCtrl', function () {
         $scope: $scope,
         CartService: cartService
       });
-    }
+    };
     cart = {
       cartItems: [
         {
@@ -35,14 +35,21 @@ xdescribe('Controller: CartCtrl', function () {
       ],
       len : 8
     };
+    spyOn(cartService,'get').and.callFake(function(callback){
+      callback(cart);
+    });
   });
 
   it('should init success', function () {
-    spyOn(cartService,'get').and.returnValue(cart);
+
     createController();
-    expect($scope.cart.cartItems.length).toBe(3);
-    expect($scope.isCartEmpty).toEqual(false);
-    expect($scope.totalMoney).toBe(49);
+    cartService.get(function(data){
+      $scope.cart = data;
+      expect($scope.cart.cartItems.length).toBe(3);
+      expect($scope.isCartEmpty).toEqual(false);
+      expect($scope.totalMoney).toBe(49);
+    });
+
   });
   it('should getSubtotal() work', function () {
       createController();
