@@ -98,6 +98,9 @@ describe('Controller: ListCtrl', function () {
   });
 
   it('should addToCart work', function () {
+      spyOn(productService,'addToCart').and.callFake(function(cart,product,callback){
+        callback(cart);
+      });
       createController();
       $scope.addToCart(products[0]);
       expect($scope.$emit).toHaveBeenCalled();
