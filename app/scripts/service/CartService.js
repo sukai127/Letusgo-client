@@ -1,12 +1,19 @@
 'use strict';
-/**
- * Created by sukai on 14-8-14.
- */
+
 angular.module('letusgo')
     .service('CartService',function($http){
+
         this.get = function(callback){
-            $http.get('/api/cart').success(function(data){
-              var cart = data || {cartItems:[],len:0};
+
+            var service = this;
+
+            $http.get('/api/cartItems').success(function(data){
+
+              var cartItems = data || [];
+              var cart = {cartItems: cartItems,
+                          count: service.getTotalCount(cartItems)
+                          };
+
               callback(cart);
             });
         };
