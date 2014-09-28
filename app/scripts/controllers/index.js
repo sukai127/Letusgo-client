@@ -9,7 +9,6 @@ angular
 
         $scope.$on('addCount',function(event,cart){
             $scope.cart = cart;
-            CartService.add($scope.cart);
         });
         $scope.indexActive = true;
         $scope.listActive = false;
