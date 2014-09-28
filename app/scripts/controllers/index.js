@@ -35,8 +35,8 @@ angular
             cart.count = CartService.getTotalCount(cart.cartItems);
             $scope.cart.count = cart.count;
         });
-    
+
         $scope.$on('clear',function(){
-          $scope.cart = {cartItems: [],len:0};
+          $scope.cart = {cartItems: [],count:0};
         });
     });
