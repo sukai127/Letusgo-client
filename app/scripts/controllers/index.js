@@ -30,10 +30,12 @@ angular
         $scope.$on('highLightActive',function(event,active){
           $scope.highLight(active + 'Active');
         });
+
         $scope.$on('updateCount',function(event,cart){
-            cart.len = CartService.getTotalCount(cart);
-            $scope.cart.len = cart.len;
+            cart.count = CartService.getTotalCount(cart.cartItems);
+            $scope.cart.count = cart.count;
         });
+    
         $scope.$on('clear',function(){
           $scope.cart = {cartItems: [],len:0};
         });
