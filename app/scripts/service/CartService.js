@@ -18,6 +18,19 @@ angular.module('letusgo')
             });
         };
 
+        this.buildCartItem= function(cartItems,callback){
+
+          $http.get('/api/products').success(function(data){
+            _.forEach(cartItems,function(cartItem){
+              var product = _.find(data,function(product){
+                return product.id.toString() === cartItem.productId.toString();
+              });
+              cartItem.product = product;
+            });
+            callback(cartItems);
+          });
+        };
+
         this.add = function(cartItem){
             $http.post('/api/cartItems',{cartItem:cartItem});
         };
