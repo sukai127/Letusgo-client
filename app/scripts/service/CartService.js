@@ -56,6 +56,10 @@ angular.module('letusgo')
             return (cartitem.product.price * cartitem.count).toFixed(2);
         };
 
+        this.delete = function(cartItem){
+            $http.delete('/api/cartItems/'+cartItem.id);
+        };
+
         this.remove = function(callback){
             $http.post('/api/payment').success(function(data,status){
               if(status === 200){

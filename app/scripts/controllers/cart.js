@@ -21,7 +21,7 @@ angular.module('letusgo')
             $scope.cart.cartItems.splice(index,1);
             CartService.delete($scope.cart.cartItems[index]);
         };
-    
+
         $scope.$watch('cart',function(){
           _.remove($scope.cart.cartItems,function(cartitem){
             return cartitem.count < 1;
