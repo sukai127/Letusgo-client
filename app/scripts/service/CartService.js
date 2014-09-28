@@ -17,9 +17,11 @@ angular.module('letusgo')
               callback(cart);
             });
         };
-        this.add = function(cart){
-            $http.post('/api/cart',{cart:cart});
+
+        this.add = function(cartItem){
+            $http.post('/api/cartItems',{cartItem:cartItem});
         };
+
         this.getTotalMoney = function(cart){
             var sum = 0;
             _.forEach(cart.cartItems,function(cartitem){
