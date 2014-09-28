@@ -9,12 +9,14 @@ angular.module('letusgo')
 
             $http.get('/api/cartItems').success(function(data){
 
-              var cartItems = data || [];
-              var cart = {cartItems: cartItems,
-                          count: service.getTotalCount(cartItems)
-                          };
+              service.buildCartItem(data,function(cartItems){
 
-              callback(cart);
+                var cart = {cartItems: cartItems,
+                  count: service.getTotalCount(cartItems)
+                };
+
+                callback(cart);
+              });
             });
         };
 
