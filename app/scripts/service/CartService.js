@@ -22,9 +22,9 @@ angular.module('letusgo')
             $http.post('/api/cartItems',{cartItem:cartItem});
         };
 
-        this.getTotalMoney = function(cart){
+        this.getTotalMoney = function(cartItems){
             var sum = 0;
-            _.forEach(cart.cartItems,function(cartitem){
+            _.forEach(cartItems,function(cartitem){
                sum += cartitem.product.price * cartitem.count;
             });
             return sum;
