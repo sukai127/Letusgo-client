@@ -30,9 +30,9 @@ angular.module('letusgo')
             return sum;
         };
 
-        this.getTotalCount = function(cart){
+        this.getTotalCount = function(cartItems){
 
-          return _.reduce(_.pluck(cart.cartItems, 'count'), function (count1, count2) {
+          return _.reduce(_.pluck(cartItems, 'count'), function (count1, count2) {
             return count1 + count2;
           });
         };
