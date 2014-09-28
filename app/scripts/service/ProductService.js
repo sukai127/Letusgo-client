@@ -3,7 +3,7 @@
 angular.module('letusgo')
     .service('ProductService',function(CartItemService,CategoryManageService,CartService,$http){
         this.loadAllProducts = function(pageNow,callback){
-            $http.get('/api/items').success(function(products){
+            $http.get('/api/products').success(function(products){
               if(pageNow){
                 products  = products.slice((pageNow-1)*2,pageNow*2);
               }

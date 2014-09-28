@@ -28,7 +28,7 @@ angular.module('letusgo')
         };
 
         this.isIncludeProduct = function(id,callback){
-          $http.get('/api/items').success(function(products){
+          $http.get('/api/products').success(function(products){
             var result = _.find(products,function(product){
               return product.categoryId === ''+id;
             });
