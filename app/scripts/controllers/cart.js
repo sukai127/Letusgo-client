@@ -10,16 +10,18 @@ angular.module('letusgo')
           $scope.totalMoney = CartService.getTotalMoney($scope.cart.cartItems);
 
         });
-    
+
         $scope.$emit('highLightActive','cart');
 
         $scope.getSubtotal = function(cartitem){
             return CartService.getSubtotal(cartitem);
         };
+
         $scope.deleteItem = function(index){
             $scope.cart.cartItems.splice(index,1);
-            return false;
+            CartService.delete($scope.cart.cartItems[index]);
         };
+    
         $scope.$watch('cart',function(){
           _.remove($scope.cart.cartItems,function(cartitem){
             return cartitem.count < 1;
