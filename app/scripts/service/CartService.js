@@ -40,8 +40,9 @@ angular.module('letusgo')
         this.getSubtotal = function(cartitem){
             return (cartitem.product.price * cartitem.count).toFixed(2);
         };
+
         this.remove = function(callback){
-            $http.delete('/api/cart').success(function(data,status){
+            $http.post('/api/payment').success(function(data,status){
               if(status === 200){
                 callback();
               }
