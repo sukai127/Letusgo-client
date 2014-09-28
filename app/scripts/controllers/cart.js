@@ -22,15 +22,16 @@ angular.module('letusgo')
             CartService.delete($scope.cart.cartItems[index]);
         };
 
-        $scope.$watch('cart',function(){
+        $scope.updateItem  = function(index){
+
           _.remove($scope.cart.cartItems,function(cartitem){
             return cartitem.count < 1;
           });
 
-          $scope.totalMoney = CartService.getTotalMoney($scope.cart);
-          CartService.add($scope.cart);
+          $scope.totalMoney = CartService.getTotalMoney($scope.cart.cartItems);
+          CartService.update($scope.cart.cartItems[index]);
           $scope.$emit('updateCount',$scope.cart);
-        },true);
+        };
     });
 
 
