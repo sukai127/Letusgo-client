@@ -36,6 +36,11 @@ angular.module('letusgo')
           return previous;
         };
 
+        this.getNext = function(pageNow,pageTotal){
+          var next = pageNow + 1 > _.max(pageTotal) ? _.max(pageTotal) : pageNow + 1;
+          return next;
+        };
+
         this.addToCart = function(product){
 
            $http.get('/api/cartItems').success(function(cartItems){
