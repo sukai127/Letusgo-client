@@ -110,14 +110,13 @@ describe('Controller: ListCtrl', function () {
 
   it('should addToCart work', function () {
 
-      spyOn(productService,'addToCart').and.callFake(function(cart,product,callback){
-        callback(cart);
-      });
+      spyOn(productService,'addToCart');
 
       createController();
       $scope.addToCart(products[0]);
 
       expect($scope.$emit).toHaveBeenCalled();
+      expect(productService.addToCart.calls.count()).toBe(1);
       expect($scope.cart.cartItems.length).toBe(3);
   });
 });
