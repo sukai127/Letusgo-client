@@ -12,7 +12,7 @@ angular.module('letusgo')
     $scope.$emit('highLightActive','list');
     $scope.addToCart = function(product){
         ProductService.addToCart(product);
-        $scope.$emit('addCount',$scope.cart);
+        $scope.$emit('addCount');
     };
 
     ProductService.getPageTotal(function(data){
