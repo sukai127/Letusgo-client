@@ -2,21 +2,21 @@
 
 describe('Controller: ListCtrl', function () {
 
-  var createController,$controller,$scope,categories,categoryManageService,products,$routeParams;
+  var createController,$controller,$scope,categories,categoryService,products,$routeParams;
 
   beforeEach(function(){
     module('letusgo');
     inject(function ($injector) {
       $scope = $injector.get('$rootScope').$new();
       $controller = $injector.get('$controller');
-      categoryManageService = $injector.get('CategoryManageService');
+      categoryService = $injector.get('CategoryService');
       $routeParams = $injector.get('$routeParams');
     });
 
     createController = function(){
       return $controller('CategoryManageCtrl', {
         $scope: $scope,
-        CategoryManageService: categoryManageService,
+        CategoryService: categoryService,
         $routeParams: $routeParams
       });
     };
@@ -29,7 +29,7 @@ describe('Controller: ListCtrl', function () {
       {name: 'apple', unit: 'kg', categoryId: '1', price: 2.5}
     ];
     spyOn($scope,'$emit');
-    spyOn(categoryManageService,'loadAllCategories').and.callFake(function(callback){
+    spyOn(categoryService,'loadAllCategories').and.callFake(function(callback){
       callback(categories);
     });
   });
@@ -37,7 +37,7 @@ describe('Controller: ListCtrl', function () {
   it('should init success', function () {
     $routeParams.id = 1;
     createController();
-    categoryManageService.loadAllCategories(function(data){
+    categoryService.loadAllCategories(function(data){
       $scope.categories = data;
       expect($scope.categories.length).toBe(2);
       expect($scope.category.name).toBe('grocery');
@@ -47,27 +47,27 @@ describe('Controller: ListCtrl', function () {
   });
 
   it('should add() work', function () {
-    spyOn(categoryManageService,'insert').and.callFake(function(name,callback){
+    spyOn(categoryService,'insert').and.callFake(function(name,callback){
       callback({id:1,name:name});
     });
     createController();
     $scope.add();
-    expect(categoryManageService.insert.calls.count()).toBe(1);
+    expect(categoryService.insert.calls.count()).toBe(1);
   });
 
   it('should remove() work', function () {
-    spyOn(categoryManageService,'delete');
+    spyOn(categoryService,'delete');
     createController();
     $scope.remove(1);
-    expect(categoryManageService.delete.calls.count()).toBe(1);
+    expect(categoryService.delete.calls.count()).toBe(1);
     expect($scope.categories.length).toBe(1);
   });
 
   it('should updateCategory() work', function () {
     var category = {id : 2, name: 'device'};
-    spyOn(categoryManageService,'updateCategory');
+    spyOn(categoryService,'updateCategory');
     createController();
     $scope.updateCategory(category);
-    expect(categoryManageService.updateCategory.calls.count()).toBe(1);
+    expect(categoryService.updateCategory.calls.count()).toBe(1);
   });
 });
