@@ -1,6 +1,6 @@
 'use strict';
 angular.module('letusgo')
-    .service('CategoryManageService',function($http){
+    .service('CategoryService',function($http){
 
         this.loadAllCategories = function(callback){
 
@@ -51,7 +51,7 @@ angular.module('letusgo')
             callback(data);
           });
         };
-    
+
         this.updateCategory = function(category){
           delete category.couldDelete;
           $http.put('/api/categories/'+category.id,{category:category});
