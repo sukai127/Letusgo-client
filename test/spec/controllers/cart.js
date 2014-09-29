@@ -98,5 +98,28 @@ describe('Controller: CartCtrl', function () {
       expect(count-1).toBe(currentCount);
 
     });
+
+    it('should updateItem() work when count > 0', function () {
+
+      spyOn(cartService,'update');
+      createController();
+
+      $scope.updateItem(1);
+
+      expect(cartService.update).toHaveBeenCalled();
+
+    });
+
+    it('should updateItem() work when count < 0', function () {
+
+      createController();
+      spyOn($scope,'deleteItem');
+
+      $scope.cart.cartItems[1].count = -1;
+      $scope.updateItem(1);
+
+      expect($scope.deleteItem.calls.count()).toBe(1);
+
+    });
   });
 });
