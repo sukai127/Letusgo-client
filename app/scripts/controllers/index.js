@@ -7,9 +7,11 @@ angular
           $scope.cart = data;
         });
 
-        $scope.$on('addCount',function(event,cart){
-            $scope.cart = cart;
+        $scope.$on('addCount',function(){
+            var newCount = $scope.cart.count + 1;
+            $scope.cart.count = newCount;
         });
+
         $scope.indexActive = true;
         $scope.listActive = false;
         $scope.cartActive = false;
