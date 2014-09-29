@@ -8,8 +8,8 @@ angular
         });
 
         $scope.$on('addCount',function(){
-            var newCount = $scope.cart.count + 1;
-            $scope.cart.count = newCount;
+            var count = $scope.cart.count || 0;
+            $scope.cart.count = count + 1;
         });
 
         $scope.indexActive = true;

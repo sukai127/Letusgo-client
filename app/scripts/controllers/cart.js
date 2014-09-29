@@ -33,8 +33,11 @@ angular.module('letusgo')
 
         $scope.$watch('cart',function(){
 
-          $scope.totalMoney = CartService.getTotalMoney($scope.cart.cartItems);
-          $scope.$emit('updateCount',$scope.cart);
+          if($scope.cart){
+            $scope.totalMoney = CartService.getTotalMoney($scope.cart.cartItems);
+            $scope.$emit('updateCount',$scope.cart);
+          }
+
         },true);
     });
 
