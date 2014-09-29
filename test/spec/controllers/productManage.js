@@ -2,7 +2,7 @@
 
 describe('Controller: ListCtrl', function () {
 
-  var createController,$controller,productManageService,$scope,products,categoryManageService,categories,$routeParams;
+  var createController,$controller,productService,$scope,products,categoryService,categories,$routeParams;
 
   beforeEach(function(){
     module('letusgo');
@@ -10,15 +10,15 @@ describe('Controller: ListCtrl', function () {
       $scope = $injector.get('$rootScope').$new();
       $controller = $injector.get('$controller');
       $routeParams = $injector.get('$routeParams');
-      categoryManageService = $injector.get('CategoryManageService');
-      productManageService = $injector.get('ProductManageService');
+      categoryService = $injector.get('CategoryService');
+      productService = $injector.get('ProductService');
     });
 
     createController = function(){
       return $controller('ProductManageCtrl', {
         $scope: $scope,
-        CategoryManageService: categoryManageService,
-        ProductManageService: productManageService,
+        CategoryService: categoryService,
+        ProductService: productService,
         $routeParams: $routeParams
       });
     };
@@ -27,7 +27,8 @@ describe('Controller: ListCtrl', function () {
         {id:2, name : 'apple', unit : 'kg', category : '1', price : 2.5}
       ];
     spyOn($scope,'$emit');
-    spyOn(productManageService,'loadAllProducts').and.callFake(function(callback){
+
+    spyOn(productService,'loadAllProducts').and.callFake(function(pageNow,callback){
       callback(products);
     });
 
@@ -35,17 +36,22 @@ describe('Controller: ListCtrl', function () {
       {id : 1, name: 'grocery'},
       {id : 2, name: 'device'}
     ];
-    spyOn(categoryManageService,'loadAllCategories').and.callFake(function(callback){
+
+    spyOn(categoryService,'loadAllCategories').and.callFake(function(callback){
       callback(categories);
     });
   });
 
   it('should init success', function () {
 
+    spyOn(categoryService,'getCategoryById').and.callFake(function(id,callback){
+      callback({id:2,name:'grocery'});
+    });
+
     $routeParams.name = 'test';
     createController();
 
-    productManageService.loadAllProducts(function(data){
+    productService.loadAllProducts(null,function(data){
       $scope.products = data;
       expect($scope.products.length).toBe(2);
       expect($scope.product).toBe(undefined);
@@ -56,19 +62,19 @@ describe('Controller: ListCtrl', function () {
 
   it('should init success when product is not empty', function () {
 
-    spyOn(categoryManageService,'getCategoryById').and.callFake(function(id,callback){
+    spyOn(categoryService,'getCategoryById').and.callFake(function(id,callback){
       callback({id:2,name:'grocery'});
     });
 
     $routeParams.name = 'apple';
     createController();
 
-    productManageService.loadAllProducts(function(data){
+    productService.loadAllProducts(null,function(data){
       $scope.products = data;
       expect($scope.products.length).toBe(2);
       expect($scope.products[1].name).toBe('apple');
       expect($scope.$emit.calls.count()).toBe(1);
-      expect(categoryManageService.getCategoryById).toHaveBeenCalled();
+      expect(categoryService.getCategoryById).toHaveBeenCalled();
     });
   });
 
@@ -76,7 +82,7 @@ describe('Controller: ListCtrl', function () {
 
     createController();
 
-    categoryManageService.loadAllCategories(function(data){
+    categoryService.loadAllCategories(function(data){
       $scope.categories = data;
       expect($scope.categories.length).toBe(2);
     });
@@ -85,20 +91,20 @@ describe('Controller: ListCtrl', function () {
 
   it('should remove() work', function () {
 
-    spyOn(productManageService,'delete');
+    spyOn(productService,'delete');
 
     createController();
     $scope.remove(1);
 
     expect($scope.products.length).toBe(1);
-    expect(productManageService.delete.calls.count()).toBe(1);
+    expect(productService.delete.calls.count()).toBe(1);
   });
 
   it('should add() work when product equal {}', function () {
 
     var product = {name : 'Instant', unit : 'bag', category : '1', price : 1};
 
-    spyOn(productManageService,'insert').and.callFake(function(item,callback){
+    spyOn(productService,'insert').and.callFake(function(item,callback){
       callback(product);
     });
 
@@ -112,14 +118,14 @@ describe('Controller: ListCtrl', function () {
   it('should updateProduct() work', function () {
 
     var product = {id:1,name : 'Instant', unit : 'bag', category : '1', price : 1};
-    spyOn(productManageService,'updateProduct');
+    spyOn(productService,'updateProduct');
 
     createController();
     $scope.product = product;
     $scope.updateProduct();
-    
+
     expect($scope.products[0].name).toBe('Instant');
-    expect(productManageService.updateProduct.calls.count()).toBe(1);
+    expect(productService.updateProduct.calls.count()).toBe(1);
   });
 
 });
