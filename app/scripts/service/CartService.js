@@ -60,6 +60,10 @@ angular.module('letusgo')
             $http.delete('/api/cartItems/'+cartItem.id);
         };
 
+        this.update = function(cartItem){
+            $http.put('/api/cartItems/'+cartItem.id,{cartItem:cartItem});
+        };
+
         this.remove = function(callback){
             $http.post('/api/payment').success(function(data,status){
               if(status === 200){
