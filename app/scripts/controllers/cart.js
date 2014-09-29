@@ -18,18 +18,20 @@ angular.module('letusgo')
         };
 
         $scope.deleteItem = function(index){
-            $scope.cart.cartItems.splice(index,1);
             CartService.delete($scope.cart.cartItems[index]);
+            $scope.cart.cartItems.splice(index,1);
         };
 
         $scope.updateItem  = function(index){
 
-          _.remove($scope.cart.cartItems,function(cartitem){
-            return cartitem.count < 1;
-          });
+          if($scope.cart.cartItems[index].count <= 0){
+            $scope.deleteItem(index);
+            return ;
+          }else{
+            CartService.update($scope.cart.cartItems[index]);
+          }
 
           $scope.totalMoney = CartService.getTotalMoney($scope.cart.cartItems);
-          CartService.update($scope.cart.cartItems[index]);
           $scope.$emit('updateCount',$scope.cart);
         };
     });
