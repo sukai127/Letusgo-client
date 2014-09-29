@@ -32,7 +32,7 @@ describe('Controller: IndexCtrl', function () {
           count : 1
         }
       ],
-      len : 8
+      count : 8
     };
     spyOn(cartService,'get').and.callFake(function(callback){
       callback(cart);
@@ -47,13 +47,13 @@ describe('Controller: IndexCtrl', function () {
     expect($scope.cart.cartItems.length).toBe(3);
   });
 
-  it('should on_parent_addCount event trigger', function () {
-    spyOn(cartService,'add');
+  it('should addCount event trigger', function () {
     createController();
+    var count = $scope.cart.count;
     $rootScope.$broadcast('addCount');
+    expect(count+1).toBe(9);
     expect($scope.indexActive).toEqual(true);
     expect($scope.listActive).toEqual(false);
-    expect(cartService.add).toHaveBeenCalled();
   });
 
   it('should highLight trigger', function () {
