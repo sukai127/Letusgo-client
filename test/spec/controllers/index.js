@@ -56,6 +56,16 @@ describe('Controller: IndexCtrl', function () {
     expect($scope.listActive).toEqual(false);
   });
 
+  it('should addCount event trigger when cart is empty', function () {
+    createController();
+    $scope.cart.count = null;
+    var count = $scope.cart.count;
+    $rootScope.$broadcast('addCount');
+    expect(count+1).toBe(1);
+    expect($scope.indexActive).toEqual(true);
+    expect($scope.listActive).toEqual(false);
+  });
+
   it('should highLight trigger', function () {
     createController();
     $scope.highLight('listActive');
@@ -79,7 +89,7 @@ describe('Controller: IndexCtrl', function () {
   it('should clear event trigger', function () {
     createController();
     $rootScope.$broadcast('clear');
-    expect($scope.cart.len).toEqual(0);
+    expect($scope.cart.count).toEqual(0);
     expect($scope.cart.cartItems.length).toEqual(0);
   });
 
@@ -88,7 +98,7 @@ describe('Controller: IndexCtrl', function () {
     createController();
     $rootScope.$broadcast('updateCount',cart);
     expect(cartService.getTotalCount.calls.count()).toEqual(1);
-    expect($scope.cart.len).toEqual(8);
+    expect($scope.cart.count).toEqual(8);
   });
 
 });
