@@ -31,6 +31,11 @@ angular.module('letusgo')
           });
         };
 
+        this.getPrevious = function(pageNow){
+          var previous = pageNow - 1 < 1 ? 1 : pageNow - 1;
+          return previous;
+        };
+
         this.addToCart = function(product){
 
            $http.get('/api/cartItems').success(function(cartItems){
