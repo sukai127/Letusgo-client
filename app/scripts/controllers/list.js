@@ -11,9 +11,8 @@ angular.module('letusgo')
     });
     $scope.$emit('highLightActive','list');
     $scope.addToCart = function(product){
-        ProductService.addToCart($scope.cart,product,function(cart){
-          $scope.$emit('addCount',cart);
-        });
+        ProductService.addToCart(product);
+        $scope.$emit('addCount',$scope.cart);
     };
 
     ProductService.getPageTotal(function(data){
