@@ -19,7 +19,7 @@ angular.module('letusgo')
               callback(products);
             });
         };
-    
+
         this.getPageTotal = function(callback){
 
           this.loadAllProducts(null,function(data){
@@ -31,34 +31,33 @@ angular.module('letusgo')
           });
         };
 
-        this.addToCart = function(product,callback){
+        this.addToCart = function(product){
 
-           $http.get('cartItems').success(function(cartItems){
+           $http.get('/api/cartItems').success(function(cartItems){
 
-             var existIndex = function (){
+             var existItem = function (){
 
-               var index = -1;
+               var result  = null;
 
                _.forEach(cartItems,function(item,i){
 
                  if(product.id.toString() === item.productId.toString()){
-                   index = i;
+                   result  = cartItems[i];
                  }
                });
-               return index;
+               return result;
              };
 
              var cartItem = {productId:product.id};
+             var updateItem = existItem();
 
-             if(existIndex() === -1){
+             if(!updateItem){
                cartItem.count = 1;
                $http.post('/api/cartItems',{cartItem: cartItem});
              }else{
-               var count = cartItems[existIndex()];
-               cartItem.count = count + 1;
-               $http.put('/api/cartItems',{cartItem:cartItem});
+               updateItem.count = updateItem.count + 1;
+               $http.put('/api/cartItems/'+updateItem.id,{cartItem:updateItem});
              }
-             callback();
            });
         };
     });
