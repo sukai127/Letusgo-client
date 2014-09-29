@@ -66,7 +66,7 @@ describe('Controller: CartCtrl', function () {
       spyOn($scope,'$emit');
     });
 
-    it('should #watch() work', function () {
+    it('should #watch() work when cart is empty', function () {
 
       createController();
 
@@ -84,6 +84,16 @@ describe('Controller: CartCtrl', function () {
       $scope.$apply();
       expect(cartService.getTotalMoney.calls.count()).toBe(2);
       expect($scope.$emit).toHaveBeenCalled();
+    });
+
+    it('should #watch() work when cart is not empty', function () {
+
+      createController();
+
+      $scope.cart = null;
+      $scope.$apply();
+      expect(cartService.getTotalMoney.calls.count()).toBe(1);
+      expect($scope.$emit.calls.count()).toBe(1);
     });
 
     it('should deleteItem() work', function () {
