@@ -20,7 +20,7 @@ angular
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-      .when('/list/:pageNow', {
+      .when('/list', {
         templateUrl: 'views/list.html',
         controller: 'ListCtrl'
       })
