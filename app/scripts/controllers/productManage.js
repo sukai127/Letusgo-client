@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('letusgo')
-  .controller('ProductManageCtrl', function ($scope,ProductManageService,CategoryManageService,$routeParams) {
+  .controller('ProductManageCtrl', function ($scope,ProductManageService,CategoryService,$routeParams) {
 
     ProductManageService.loadAllProducts(function(data){
       $scope.products = data;
@@ -10,13 +10,13 @@ angular.module('letusgo')
         return product.name.toString() === name.toString();
       });
       if($scope.product){
-        CategoryManageService.getCategoryById($scope.product.categoryId,function(data){
+        CategoryService.getCategoryById($scope.product.categoryId,function(data){
           $scope.product.category = data;
         });
       }
     });
 
-    CategoryManageService.loadAllCategories(function(data){
+    CategoryService.loadAllCategories(function(data){
       $scope.categories = data;
     });
 
