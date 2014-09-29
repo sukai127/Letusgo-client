@@ -22,7 +22,7 @@ angular.module('letusgo')
 
     ProductService.getPageTotal(function(data){
       $scope.pageTotal = data;
-      $scope.previous = $scope.pageNow - 1 < 1 ? 1 : $scope.pageNow - 1;
-      $scope.next = $scope.pageNow + 1 > _.max($scope.pageTotal) ? _.max($scope.pageTotal) : $scope.pageNow + 1;
+      $scope.previous = ProductService.getPrevious($scope.pageNow);
+      $scope.next = ProductService.getNext($scope.pageNow,data);
     });
   });
