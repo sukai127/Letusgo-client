@@ -29,9 +29,9 @@
   <div class="row">
     <div class="col-md-9 text-center">
       <ul class="pagination pagination-lg">
-        <li ><a href="#/list/{{previous}}">&laquo;</a></li>
-        <li ng-repeat="num in pageTotal"><a href="#/list/{{num}}">{{num}}</a></li>
-        <li ><a href="#/list/{{next}}">&raquo;</a></li>
+        <li ><a href="#/list?pageNow={{previous}}">&laquo;</a></li>
+        <li ng-repeat="num in pageTotal"><a href="#/list?pageNow={{num}}">{{num}}</a></li>
+        <li ><a href="#/list?pageNow={{next}}">&raquo;</a></li>
       </ul>
     </div>
     <div class="col-md-3 text-right">
