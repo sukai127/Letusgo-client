@@ -22,9 +22,9 @@ angular
             var allItems = ['indexActive','listActive','cartActive','categoryActive','productActive'];
             _.forEach(allItems,function(item){
                if(highLightItem === item){
-                   eval('$scope.' + item + " = true");
+                    $scope[item] = true;
                } else{
-                   eval('$scope.' + item + " = false");
+                    $scope[item] = false;
                }
             });
         };
