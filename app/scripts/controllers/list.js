@@ -2,14 +2,19 @@
 
 angular.module('letusgo')
   .controller('ListCtrl', function ($scope,CartService,ProductService,CategoryManageService,$routeParams) {
+
     $scope.pageNow = parseInt($routeParams.pageNow);
+
     ProductService.loadAllProducts($scope.pageNow,function(data){
       $scope.products = data;
     });
+
     CartService.get(function(data){
        $scope.cart = data;
     });
+
     $scope.$emit('highLightActive','list');
+
     $scope.addToCart = function(product){
         ProductService.addToCart(product);
         $scope.$emit('addCount');
