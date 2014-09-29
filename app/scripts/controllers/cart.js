@@ -26,14 +26,16 @@ angular.module('letusgo')
 
           if($scope.cart.cartItems[index].count <= 0){
             $scope.deleteItem(index);
-            return ;
           }else{
             CartService.update($scope.cart.cartItems[index]);
           }
+        };
+
+        $scope.$watch('cart',function(){
 
           $scope.totalMoney = CartService.getTotalMoney($scope.cart.cartItems);
           $scope.$emit('updateCount',$scope.cart);
-        };
+        },true);
     });
 
 
