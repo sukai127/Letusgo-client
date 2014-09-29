@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('letusgo')
-  .controller('ListCtrl', function ($scope,CartService,ProductService,CategoryManageService,$routeParams) {
+  .controller('ListCtrl', function ($scope,CartService,ProductService,$routeParams) {
 
     $scope.pageNow = parseInt($routeParams.pageNow);
 
