@@ -2,7 +2,7 @@
 
 describe('Controller: ListCtrl', function () {
 
-  var createController,$controller,cart,cartService,productService,$scope,products,categoryManageService,$routeParams;
+  var createController,$controller,cart,cartService,productService,$scope,products,categoryService,$routeParams;
 
   beforeEach(function(){
     module('letusgo');
@@ -10,7 +10,7 @@ describe('Controller: ListCtrl', function () {
       $scope = $injector.get('$rootScope').$new();
       $controller = $injector.get('$controller');
       cartService = $injector.get('CartService');
-      categoryManageService = $injector.get('CategoryManageService');
+      categoryService = $injector.get('CategoryService');
       productService = $injector.get('ProductService');
       $routeParams = $injector.get('$routeParams');
     });
@@ -19,7 +19,7 @@ describe('Controller: ListCtrl', function () {
       return $controller('ListCtrl', {
         $scope: $scope,
         CartService: cartService,
-        CategoryManageService: categoryManageService,
+        CategoryService: categoryService,
         ProductService: productService,
         $routeParams : $routeParams
       });
@@ -45,64 +45,78 @@ describe('Controller: ListCtrl', function () {
       ],
       len : 8
     };
+
     spyOn(productService,'loadAllProducts').and.callFake(function(items,callback){
       callback(products);
     });
+
     spyOn(cartService,'get').and.callFake(function(callback){
       callback(cart);
     });
+
     spyOn($scope,'$emit');
   });
 
   it('should init success', function () {
+
     createController();
+
     productService.loadAllProducts(1,function(data){
       $scope.products = data;
       expect($scope.products.length).toBe(2);
     });
+
     cartService.get(function(data){
       $scope.cart = data;
       expect($scope.cart.cartItems.length).toBe(3);
     });
+
     expect($scope.$emit).toHaveBeenCalled();
   });
 
   it('should page init success', function () {
+
     spyOn(productService,'getPageTotal').and.callFake(function(callback){
       callback([1,2,3]);
     });
+
     $routeParams.pageNow = 3;
     createController();
+
     productService.getPageTotal(function(data){
       $scope.pageTotal = data;
       expect($scope.pageTotal.length).toBe(3);
       expect($scope.previous).toBe(2);
       expect($scope.next).toBe(3);
     });
-
   });
 
   it('should page init success', function () {
+
     spyOn(productService,'getPageTotal').and.callFake(function(callback){
       callback([1,2,3]);
     });
+
     $routeParams.pageNow = 1;
     createController();
+
     productService.getPageTotal(function(data){
       $scope.pageTotal = data;
       expect($scope.pageTotal.length).toBe(3);
       expect($scope.previous).toBe(1);
       expect($scope.next).toBe(2);
     });
-
   });
 
   it('should addToCart work', function () {
+
       spyOn(productService,'addToCart').and.callFake(function(cart,product,callback){
         callback(cart);
       });
+
       createController();
       $scope.addToCart(products[0]);
+
       expect($scope.$emit).toHaveBeenCalled();
       expect($scope.cart.cartItems.length).toBe(3);
   });
