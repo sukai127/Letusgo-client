@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('letusgo')
-    .service('ProductService',function(CartItemService,CategoryManageService,CartService,$http){
+    .service('ProductService',function(CategoryService,CartService,$http){
         this.loadAllProducts = function(pageNow,callback){
             $http.get('/api/products').success(function(products){
 
@@ -11,7 +11,7 @@ angular.module('letusgo')
 
               _.forEach(products,function(product){
 
-                CategoryManageService.getCategoryById(product.categoryId,function(data){
+                CategoryService.getCategoryById(product.categoryId,function(data){
                   product.category = data;
                 });
               });
@@ -40,7 +40,7 @@ angular.module('letusgo')
           $http.get('/api/products').success(function(data){
             _.forEach(data,function(item){
               if(!item.category){
-                CategoryManageService.getCategoryById(item.categoryId,function(category){
+                CategoryService.getCategoryById(item.categoryId,function(category){
                   item.category = category;
                 });
               }
@@ -54,7 +54,7 @@ angular.module('letusgo')
           var isAllFullIn = product && product.name && product.price && product.unit && product.categoryId;
           if(isAllFullIn){
             $http.post('/api/products',{product:product}).success(function(){
-              CategoryManageService.getCategoryById(product.categoryId,function(category){
+              CategoryService.getCategoryById(product.categoryId,function(category){
                 product.category = category;
                 callback(product);
               });
