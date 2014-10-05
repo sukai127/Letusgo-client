@@ -101,4 +101,24 @@ describe('Service: CartService', function () {
     service.update(cartItems[1]);
     expect($http.put.calls.count()).toBe(1);
   });
+
+  it('should remove() worked success when status is 200', function () {
+
+    $httpBackend.expectPOST('/api/payment').respond(200);
+
+    service.remove(function(){
+      expect(1).toBe(1);
+    });
+    $httpBackend.flush();
+  });
+
+  it('should remove() worked success when status is not 200', function () {
+
+    $httpBackend.expectPOST('/api/payment').respond(201);
+
+    service.remove(function(){
+      expect(1).toBe(2);
+    });
+    $httpBackend.flush();
+  });
 });
