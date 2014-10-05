@@ -89,4 +89,10 @@ describe('Service: CartService', function () {
 
     expect(result).toBe((10).toFixed(2));
   });
+
+  it('should delete() worked', function () {
+    spyOn($http,'delete');
+    service.delete(cartItems[1]);
+    expect($http.delete.calls.count()).toBe(1);
+  });
 });
