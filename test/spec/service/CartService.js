@@ -65,4 +65,12 @@ describe('Service: CartService', function () {
     service.add(cartItems[1]);
     expect($http.post.calls.count()).toBe(1);
   });
+
+  it('should getTotalMoney() worked', function () {
+
+    var cartItems = [{id : 1,productId : 1,count : 4,product: products[1]}];
+    var result = service.getTotalMoney(cartItems);
+
+    expect(result).toBe(10);
+  });
 });
