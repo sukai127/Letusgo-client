@@ -2,7 +2,7 @@
 
 describe('Service: CartService', function () {
 
-  var service,cartItems,$httpBackend,products;
+  var service,cartItems,$httpBackend,products,$http;
 
   beforeEach(function(){
 
@@ -11,6 +11,7 @@ describe('Service: CartService', function () {
       inject(function ($injector) {
           service = $injector.get('CartService');
           $httpBackend = $injector.get('$httpBackend');
+          $http = $injector.get('$http');
       });
 
       cartItems = [
@@ -57,5 +58,11 @@ describe('Service: CartService', function () {
       expect(data.count).toBe(7);
     });
     $httpBackend.flush();
+  });
+
+  it('should add() worked', function () {
+    spyOn($http,'post');
+    service.add(cartItems[1]);
+    expect($http.post.calls.count()).toBe(1);
   });
 });
