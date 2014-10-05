@@ -73,4 +73,12 @@ describe('Service: CartService', function () {
 
     expect(result).toBe(10);
   });
+
+  it('should getTotalCount() worked', function () {
+
+    var cartItems = [{id : 1,productId : 1,count : 4,product: products[1]}];
+    var result = service.getTotalCount(cartItems);
+
+    expect(result).toBe(4);
+  });
 });
