@@ -95,4 +95,10 @@ describe('Service: CartService', function () {
     service.delete(cartItems[1]);
     expect($http.delete.calls.count()).toBe(1);
   });
+
+  it('should update() worked', function () {
+    spyOn($http,'put');
+    service.update(cartItems[1]);
+    expect($http.put.calls.count()).toBe(1);
+  });
 });
