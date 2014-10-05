@@ -81,4 +81,12 @@ describe('Service: CartService', function () {
 
     expect(result).toBe(4);
   });
+
+  it('should getSubtotal() worked', function () {
+
+    var cartItem = {id : 1,productId : 1,count : 4,product: products[1]};
+    var result = service.getSubtotal(cartItem);
+
+    expect(result).toBe((10).toFixed(2));
+  });
 });
