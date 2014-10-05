@@ -2,7 +2,7 @@
 
 describe('Service: CartService', function () {
 
-  var service,cartItems,$httpBackend;
+  var service,cartItems,$httpBackend,products;
 
   beforeEach(function(){
 
@@ -31,35 +31,23 @@ describe('Service: CartService', function () {
           }
       ];
 
+      products =[
+        {id : 1, name : 'Instant_noodles', unit : 'bag', category : '1', price : 1},
+        {id : 2, name : 'apple', unit : 'kg', category : '1', price : 2.5}
+      ];
+
   });
 
-  it('should get() work when localStorage not empty', function () {
-      var result = service.get();
-      expect(result.cartItems[0].product.name).toEqual('Instant_noodles');
-      expect(result.cartItems.length).toBe(3);
-      expect(result.len).toBe(8);
+  afterEach(function() {
+    $httpBackend.verifyNoOutstandingExpectation();
   });
 
-  it('should get() work when localStorage not empty', function () {
-    var result = service.get();
-    expect(result.cartItems.length).toBe(0);
-    expect(result.len).toBe(0);
-  });
-
-  it('should set() work',function(){
-      service.add({});
-  });
-
-  it('should the total money equal 49',function(){
-  });
-
-  it('should the total count equal 7',function(){
-  });
-
-  it('should the subtotal equal 43.50',function(){
-  });
-  
-  it('should remove() work',function(){
-      service.remove();
+  it('should buildCartItem() worked', function () {
+      $httpBackend.expectGET('/api/products').respond(200,products);
+      service.buildCartItem(cartItems,function(data){
+        expect(data[0].product.name).toEqual('Instant_noodles');
+        expect(data.length).toBe(3);
+      });
+      $httpBackend.flush();
   });
 });

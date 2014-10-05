@@ -24,8 +24,8 @@ angular.module('letusgo')
 
       $http.get('/api/products').success(function (data) {
         _.forEach(cartItems, function (cartItem) {
-          var product = _.find(data, function (product) {
-            return product.id.toString() === cartItem.productId.toString();
+          var product = _.find(data, function (item) {
+            return item.id.toString() === cartItem.productId.toString();
           });
           cartItem.product = product;
         });
