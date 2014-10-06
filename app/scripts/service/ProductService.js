@@ -58,13 +58,6 @@ angular.module('letusgo')
           $http.put('/api/products/'+product.id,{product:product});
         };
 
-        this.getProductByName = function(name,callback){
-          $http.get('/api/products').success(function(products){
-            var result = _.find(products,{name: name}) || {};
-            callback(result);
-          });
-        };
-
         this.getNext = function(pageNow,pageTotal){
           var next = pageNow + 1 > _.max(pageTotal) ? _.max(pageTotal) : pageNow + 1;
           return next;
