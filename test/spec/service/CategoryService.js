@@ -72,12 +72,17 @@ describe('Service: categoryService', function () {
       categoryService.delete(categories[1]);
       expect($http.delete.calls.count()).toBe(1);
     });
-//
-//    it('should getCategoryById() work', function () {
-//      spyOn(categoryManageService,'loadAllCategories').and.returnValue(categories);
-//      var result = categoryManageService.getCategoryById(2);
-//      expect(result.name).toBe('device');
-//    });
+
+    it('should getCategoryById() work', function () {
+      var id = 1
+      $httpBackend.expectGET('/api/categories/'+id).respond(200,categories[0]);
+
+      categoryService.getCategoryById(id,function(data){
+        expect(data.name).toBe('grocery');
+      });
+
+      $httpBackend.flush();
+    });
 //
 //    it('should updateCategory() work', function () {
 //      spyOn(localStorageService, 'get').and.returnValue(categories);
