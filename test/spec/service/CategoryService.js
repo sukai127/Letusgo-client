@@ -45,6 +45,22 @@ describe('Service: categoryService', function () {
       $httpBackend.flush();
     });
 
+    it('should loadAllCategories() work', function () {
+
+      spyOn(categoryService,'isIncludeProduct').and.callFake(function(id,callback){
+        callback(null);
+      });
+
+      $httpBackend.expectGET('/api/categories').respond(200,categories);
+
+      categoryService.loadAllCategories(function(data){
+        expect(data[0].name).toBe('grocery');
+        expect(data[0].couldDelete).toBe(true);
+      });
+
+      $httpBackend.flush();
+    });
+
     it('should insert() work when name is null', function () {
 
       spyOn($http,'post');
@@ -74,7 +90,7 @@ describe('Service: categoryService', function () {
     });
 
     it('should getCategoryById() work', function () {
-      var id = 1
+      var id = 1;
       $httpBackend.expectGET('/api/categories/'+id).respond(200,categories[0]);
 
       categoryService.getCategoryById(id,function(data){
@@ -83,20 +99,12 @@ describe('Service: categoryService', function () {
 
       $httpBackend.flush();
     });
-//
-//    it('should updateCategory() work', function () {
-//      spyOn(localStorageService, 'get').and.returnValue(categories);
-//      var category = {id : 1, name: 'grocery123'};
-//      var result = categoryManageService.updateCategory(category);
-//      expect(result.name).toBe('grocery123');
-//    });
-//
-//    it('should isIncludeProduct() work', function () {
-//      spyOn(localStorageService,'get').and.returnValue(products);
-//      var result = categoryManageService.isIncludeProduct(1);
-//      expect(result).toBe(true);
-//      result = categoryManageService.isIncludeProduct(3);
-//      expect(result).toBe(false);
-//    });
+
+    it('should updateCategory() work', function () {
+      spyOn($http, 'put');
+      var category = {id : 1, name: 'grocery123'};
+      categoryService.updateCategory(category);
+      expect($http.put.calls.count()).toBe(1);
+    });
 
 });
