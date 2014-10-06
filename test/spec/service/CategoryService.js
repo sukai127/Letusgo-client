@@ -27,12 +27,22 @@ describe('Service: categoryService', function () {
       });
       $httpBackend.flush();
     });
-//
-//    it('should add() work', function () {
-//      spyOn(localStorageService,'add');
-//      categoryManageService.add(categories);
-//      expect(localStorageService.add.calls.count()).toBe(1);
-//    });
+
+    it('should loadAllCategories() work', function () {
+
+      spyOn(categoryService,'isIncludeProduct').and.callFake(function(id,callback){
+        callback(products[0]);
+      });
+
+      $httpBackend.expectGET('/api/categories').respond(200,categories);
+
+      categoryService.loadAllCategories(function(data){
+        expect(data[0].name).toBe('grocery');
+        expect(data[0].couldDelete).toBe(false);
+      });
+
+      $httpBackend.flush();
+    });
 //
 //    it('should insert() work', function () {
 //      spyOn(categoryManageService,'loadAllCategories').and.returnValue(categories);
