@@ -93,6 +93,13 @@ describe('Service: ProductService', function () {
     result = productService.getNext(pageNow,pageTotal);
     expect(result).toBe(3);
   });
+
+  it('should delete() worked', function () {
+    spyOn($http,'delete');
+    productService.delete(products[1]);
+    expect($http.delete.calls.count()).toBe(1);
+  });
+
 //  it('when it not exist should push it', function () {
 //    cart = {cartItems: [], len: 0};
 //    var product = {name: 'fan', unit: 'piece', category: 'device', price: 30};
