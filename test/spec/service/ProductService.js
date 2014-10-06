@@ -105,14 +105,26 @@ describe('Service: ProductService', function () {
     productService.updateProduct(products[1]);
     expect($http.put.calls.count()).toBe(1);
   });
-//  it('when it not exist should push it', function () {
-//    cart = {cartItems: [], len: 0};
-//    var product = {name: 'fan', unit: 'piece', category: 'device', price: 30};
-//    productService.add2Cart(cart, product);
-//    expect(cart.cartItems[0].product.name).toEqual('fan');
-//    expect(cart.len).toBe(1);
-//  });
-//
+
+  it('should insert() worked when product is null', function () {
+    spyOn($http,'post');
+    productService.insert(null,function(){
+    });
+    expect($http.post.calls.count()).toBe(0);
+  });
+
+  it('should insert() worked when product is not null', function () {
+
+    $httpBackend.expectPOST('/api/products').respond(200,products);
+
+    var product = {name: 'banana', unit: 'kg', categoryId: 2, price: 3.5};
+
+    productService.insert(product,function(data){
+      expect(data.name).toBe('banana');
+      expect(data.category.name).toBe('device');
+    });
+    $httpBackend.flush();
+  });
 //  it('when it exist should count++', function () {
 //    var product = {name: 'fan', unit: 'piece', category: 'device', price: 30};
 //    productService.add2Cart(cart, product);
