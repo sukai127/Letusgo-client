@@ -100,6 +100,11 @@ describe('Service: ProductService', function () {
     expect($http.delete.calls.count()).toBe(1);
   });
 
+  it('should update() worked', function () {
+    spyOn($http,'put');
+    productService.updateProduct(products[1]);
+    expect($http.put.calls.count()).toBe(1);
+  });
 //  it('when it not exist should push it', function () {
 //    cart = {cartItems: [], len: 0};
 //    var product = {name: 'fan', unit: 'piece', category: 'device', price: 30};
