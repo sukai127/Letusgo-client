@@ -75,6 +75,14 @@ describe('Service: ProductService', function () {
     });
   });
 
+  it('should getPrevious worked', function () {
+    var pageNow = 1;
+    var result = productService.getPrevious(pageNow);
+    expect(result).toBe(1);
+    pageNow = 3;
+    result = productService.getPrevious(pageNow);
+    expect(result).toBe(2);
+  });
 //  it('when it not exist should push it', function () {
 //    cart = {cartItems: [], len: 0};
 //    var product = {name: 'fan', unit: 'piece', category: 'device', price: 30};
