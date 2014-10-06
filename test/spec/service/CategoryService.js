@@ -66,6 +66,12 @@ describe('Service: categoryService', function () {
 
       $httpBackend.flush();
     });
+
+    it('should delete() worked', function () {
+      spyOn($http,'delete');
+      categoryService.delete(categories[1]);
+      expect($http.delete.calls.count()).toBe(1);
+    });
 //
 //    it('should getCategoryById() work', function () {
 //      spyOn(categoryManageService,'loadAllCategories').and.returnValue(categories);
