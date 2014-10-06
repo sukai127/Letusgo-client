@@ -2,12 +2,13 @@
 
 describe('Service: categoryService', function () {
 
-    var $httpBackend,categoryService,categories,products;
+    var $httpBackend,categoryService,categories,products,$http;
     beforeEach(function(){
         module('letusgo');
         inject(function ($injector) {
             $httpBackend = $injector.get('$httpBackend');
             categoryService = $injector.get('CategoryService');
+            $http = $injector.get('$http');
         });
         categories = [
           {id : 1, name: 'grocery'},
@@ -43,16 +44,28 @@ describe('Service: categoryService', function () {
 
       $httpBackend.flush();
     });
-//
-//    it('should insert() work', function () {
-//      spyOn(categoryManageService,'loadAllCategories').and.returnValue(categories);
-//      var result = categoryManageService.insert('device');
-//      expect(result.length).toBe(2);
-//      result = categoryManageService.insert('');
-//      expect(result.length).toBe(2);
-//      result = categoryManageService.insert('node');
-//      expect(result.length).toBe(3);
-//    });
+
+    it('should insert() work when name is null', function () {
+
+      spyOn($http,'post');
+
+      categoryService.insert(null,function(){
+      });
+
+      expect($http.post.calls.count()).toBe(0);
+    });
+
+    it('should insert() work when name is not null', function () {
+
+      $httpBackend.expectPOST('/api/categories').respond(200,categories[0]);
+
+      categoryService.insert('test',function(data){
+        expect(data.name).toBe('test');
+        expect(data.couldDelete).toBe(true);
+      });
+
+      $httpBackend.flush();
+    });
 //
 //    it('should getCategoryById() work', function () {
 //      spyOn(categoryManageService,'loadAllCategories').and.returnValue(categories);
