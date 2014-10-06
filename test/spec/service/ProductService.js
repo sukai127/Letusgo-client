@@ -83,6 +83,16 @@ describe('Service: ProductService', function () {
     result = productService.getPrevious(pageNow);
     expect(result).toBe(2);
   });
+
+  it('should getNext worked', function () {
+    var pageNow = 1;
+    var pageTotal = [1,2,3];
+    var result = productService.getNext(pageNow,pageTotal);
+    expect(result).toBe(2);
+    pageNow = 3;
+    result = productService.getNext(pageNow,pageTotal);
+    expect(result).toBe(3);
+  });
 //  it('when it not exist should push it', function () {
 //    cart = {cartItems: [], len: 0};
 //    var product = {name: 'fan', unit: 'piece', category: 'device', price: 30};
