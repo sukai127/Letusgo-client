@@ -2,7 +2,7 @@
 
 describe('Service: ProductService', function () {
 
-  var $httpBackend, productService, cartService,products,$http;
+  var $httpBackend, productService, cartService,products,$http,categories,categoryService;
 
   beforeEach(function () {
 
@@ -13,28 +13,48 @@ describe('Service: ProductService', function () {
       $http = $injector.get('$http');
       productService = $injector.get('ProductService');
       cartService = $injector.get('CartService');
+      categoryService = $injector.get('CategoryService');
     });
 
     products = [
-      {id : 1, name: 'Instant_noodles', unit: 'bag', categoryId: '1', price: 1},
-      {id : 2, name: 'apple', unit: 'kg', categoryId: '1', price: 2.5}
+      {id : 1, name: 'Instant_noodles', unit: 'bag', categoryId: 1, price: 1},
+      {id : 2, name: 'apple', unit: 'kg', categoryId: 2, price: 2.5},
+      {id : 3, name: 'banana', unit: 'kg', categoryId: 2, price: 3.5}
     ];
 
+    categories = [
+      {id : 1, name: 'grocery'},
+      {id : 2, name: 'device'}
+    ];
+
+    spyOn(categoryService,'getCategoryById').and.callFake(function(id,callback){
+      callback(categories[id-1]);
+    });
   });
 
-//  it('should loadAllProducts() work  when pageNow not null', function () {
-//    spyOn(localStorageService, 'get').and.returnValue(products);
-//    var result = productService.loadAllProducts(1);
-//    expect(result.length).toEqual(2);
-//    expect(result[1].name).toBe('apple');
-//  });
-//
-//  it('should loadAllProducts() work  when pageNow is null', function () {
-//    spyOn(localStorageService, 'get').and.returnValue(products);
-//    var result = productService.loadAllProducts(null);
-//    expect(result.length).toEqual(2);
-//    expect(result[1].name).toBe('apple');
-//  });
+  afterEach(function() {
+    $httpBackend.verifyNoOutstandingExpectation();
+  });
+
+  it('should loadAllProducts() work  when pageNow not null', function () {
+    $httpBackend.expectGET('/api/products').respond(200,products);
+
+    productService.loadAllProducts(1,function(data){
+      expect(data.length).toBe(2);
+      expect(data[1].category.name).toBe('device');
+    });
+    $httpBackend.flush();
+  });
+
+  it('should loadAllProducts() work  when pageNow is null', function () {
+    $httpBackend.expectGET('/api/products').respond(200,products);
+
+    productService.loadAllProducts(null,function(data){
+      expect(data.length).toBe(3);
+      expect(data[1].category.name).toBe('device');
+    });
+    $httpBackend.flush();
+  });
 //
 //  it('should loadAllProducts() work  when localStorage is empty', function () {
 //    spyOn(localStorageService, 'get').and.returnValue(null);
