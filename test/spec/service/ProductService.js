@@ -65,14 +65,16 @@ describe('Service: ProductService', function () {
     });
   });
 
-//  it('should getPageTotal() work when product.length % 2 != 0', function () {
-//    products[2] = {name: 'banana', unit: 'kg', category: '1', price: 5.5};
-//    spyOn(localStorageService, 'get').and.returnValue(products);
-//    var result = productService.getPageTotal();
-//    expect(result.length).toEqual(2);
-//    expect(result[0]).toBe(1);
-//  });
-//
+  it('should getPageTotal() work when product.length % 2 != 0', function () {
+    products[3] = {id:4, name: 'banana', unit: 'kg', categoryId: 2, price: 5.5};
+    spyOn(productService,'loadAllProducts').and.callFake(function(pageNow,callback){
+      callback(products);
+    });
+    productService.getPageTotal(function(data){
+      expect(data.length).toBe(2);
+    });
+  });
+
 //  it('when it not exist should push it', function () {
 //    cart = {cartItems: [], len: 0};
 //    var product = {name: 'fan', unit: 'piece', category: 'device', price: 30};
