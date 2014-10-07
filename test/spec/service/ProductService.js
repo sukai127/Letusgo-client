@@ -125,12 +125,37 @@ describe('Service: ProductService', function () {
     });
     $httpBackend.flush();
   });
-//  it('when it exist should count++', function () {
-//    var product = {name: 'fan', unit: 'piece', category: 'device', price: 30};
-//    productService.add2Cart(cart, product);
-//    expect(cart.cartItems.length).toBe(1);
-//    expect(cart.cartItems[0].count).toEqual(2);
-//    expect(cart.len).toBe(2);
-//  });
 
+  it('should addToCart worked when it exist', function () {
+
+    var product = {id: 1,name: 'fan', unit: 'piece', categoryId: 1, price: 30};
+    var cartItems = [{id: 1,productId:1 , count : 2}];
+
+    $httpBackend.expectGET('/api/cartItems').respond(200,cartItems);
+    $httpBackend.expectPUT('/api/cartItems/1').respond(200,cartItems);
+    spyOn($http,'post');
+
+    productService.addToCart(product);
+
+    expect($http.post.calls.count()).toBe(0);
+
+    $httpBackend.flush();
+  });
+
+
+  it('should addToCart worked when it not exist', function () {
+
+    var product = {id: 1,name: 'fan', unit: 'piece', categoryId: 1, price: 30};
+    var cartItems = [{id: 1,productId:2 , count : 2}];
+
+    $httpBackend.expectGET('/api/cartItems').respond(200,cartItems);
+    $httpBackend.expectPOST('/api/cartItems').respond(200,cartItems);
+    spyOn($http,'put');
+
+    productService.addToCart(product);
+
+    expect($http.put.calls.count()).toBe(0);
+
+    $httpBackend.flush();
+  });
 });
